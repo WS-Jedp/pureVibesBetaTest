@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-enum ROLE {
-    ADMIN = 'ADMIN',
-    TESTER = 'TESTER',
-    GUEST = 'GUEST'
-}
+import { ROLE } from '../../core/DTO/Role'
 
 export interface RoleState {
     role: ROLE
