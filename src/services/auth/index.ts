@@ -1,20 +1,16 @@
 import { AuthUserDTO, LogoutUserDTO } from "../../core/DTO/Auth"
 import { UserDTO } from "../../core/DTO/User"
-import Service from "../Service"
-
-const SERVICE_ENDPOINT = (endpoint: string) => `/api/${endpoint}`
+import request, { SERVICE_ENDPOINT } from "../request"
 
 export const AuthServices = {
     get: {
         user: async (): Promise<UserDTO> => {
-            const service = new Service({ withAuth: true })
-            const authUser = await service.get<UserDTO>(SERVICE_ENDPOINT("user"))
+            request.setAuthHeaders()
+            const authUser = await request.get<UserDTO>(SERVICE_ENDPOINT("user"))
             return authUser
         },
         csrf: async (): Promise<void> => {
-            const service = new Service({ withAuth: true })
-            const csrfToken = await service.getCsrfToken()
-            console.log(csrfToken)
+            await request.getCsrfToken()
         }
     },
     post: {
@@ -22,8 +18,8 @@ export const AuthServices = {
             email: string
             password: string
         }): Promise<AuthUserDTO> => {
-            const service = new Service({ withAuth: false })
-            const auth = await service.post<AuthUserDTO>(
+            request.disableAuthHeaders()
+            const auth = await request.post<AuthUserDTO>(
                 SERVICE_ENDPOINT("login"),
                 data
             )
@@ -31,8 +27,8 @@ export const AuthServices = {
             return auth
         },
         logout: async (): Promise<LogoutUserDTO> => {
-            const service = new Service({withAuth: true})
-            const logout = await service.post<LogoutUserDTO>(
+            request.setAuthHeaders()
+            const logout = await request.post<LogoutUserDTO>(
                 SERVICE_ENDPOINT("logout")
             )
 
