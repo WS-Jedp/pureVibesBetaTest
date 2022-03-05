@@ -41,6 +41,8 @@ type IsBetaTestDoneForUser = {
 
 export {
     Survey,
+    SurveyDTO,
+    SurveysDTO,
     SurveyStateObject,
     SurveyStateDTO,
     BetaTestStateDTO,

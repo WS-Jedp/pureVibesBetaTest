@@ -6,7 +6,7 @@ export const RoleService = {
     get: {},
     post: {
         becomeTester: async (): Promise<ChangeRoleDTO> => {
-            request.getHeaders()
+            request.setAuthHeaders()
             const roleState = await request.post<ChangeRoleDTO>(
                 SERVICE_ENDPOINT("become/tester")
             )
