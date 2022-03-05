@@ -17,6 +17,7 @@
     "react-scripts": "5.0.0",
     "reactstrap": "^9.0.1",
     "sass": "^1.49.9",
+    "styled-components": "^5.3.3",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
     "@types/reactstrap": "^8.7.2",
+    "@types/styled-components": "^5.1.24",
     "redux-devtools": "^3.7.0",
     "typescript": "^4.5.5"
   },
