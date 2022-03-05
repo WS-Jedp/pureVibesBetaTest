@@ -16,4 +16,14 @@ export const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         box-sizing: border-box;
     }
+
+    input[type="text"], input[type="number"], input[type="password"], input[type="email"], textarea {
+        border: none;
+        border-bottom: 2px solid var(--color-dark);
+        padding: 6px 0;
+        width: 100%;
+        outline: none;
+        max-width: 100%;
+        font-size: 15px;
+    }
 `
