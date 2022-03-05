@@ -26,6 +26,7 @@ export const Router = () => {
                     )
                 }
 
+                <Route path='/dashboard'  element={<Home />} />
 
                 <Route path='/login'  element={<Login />} />
                 <Route path='*' element={<Navigate to="/login" />} />

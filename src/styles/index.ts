@@ -13,6 +13,7 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         list-style: none;
+        list-style-type: none;
         text-decoration: none;
         box-sizing: border-box;
     }

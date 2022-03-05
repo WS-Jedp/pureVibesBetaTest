@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthServices } from '../../services/auth'
 
+import { DashboardSurveyLayout } from '../../layouts/dashboard'
+
 export const Home: React.FC = () => {
 
     useEffect(() => {
@@ -12,15 +14,10 @@ export const Home: React.FC = () => {
     }, [])
 
     return (
-        <section>
+        <DashboardSurveyLayout>
             <p>
                 Hello from home
             </p>
-
-            <Link to='/login'>
-                Go to login
-            </Link>
-
-        </section>
+        </DashboardSurveyLayout>
     )
 }
