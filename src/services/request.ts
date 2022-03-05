@@ -54,6 +54,10 @@ class Request {
                 headers,
             })
 
+            if(!resp.ok) {
+                throw new Error(String(resp.status))
+            }
+
             const json: RestClientResponse<T> =
                 resp.json() as unknown as RestClientResponse<T>
             return json.data
@@ -73,6 +77,10 @@ class Request {
                 credentials: "same-origin",
                 headers,
             })
+
+            if(!resp.ok) {
+                throw new Error(String(resp.status))
+            }
 
             const json: RestClientResponse<T> =
                 resp.json() as unknown as RestClientResponse<T>
@@ -94,6 +102,10 @@ class Request {
                 headers,
             })
 
+            if(!resp.ok) {
+                throw new Error(String(resp.status))
+            }
+
             const json: RestClientResponse<T> =
                 resp.json() as unknown as RestClientResponse<T>
             return json.data
@@ -107,12 +119,15 @@ class Request {
         const headers = this.getHeaders()
 
         try {
-            await fetch(this.baseUrl + "/sanctum/csrf-cookie", {
+            const resp = await fetch(this.baseUrl + "/sanctum/csrf-cookie", {
                 method: "get",
                 credentials: "same-origin",
                 headers,
             })
-            console.log(Cookies.get())
+
+            if(!resp.ok) {
+                throw new Error(String(resp.status))
+            }
         } catch (error) {
             throw new Error(error)
         }
@@ -133,4 +148,4 @@ const SERVICE_ENDPOINT = (endpoint: string) => `/api/${endpoint}`
 const requestService = new Request({ withAuth: false })
 
 export default requestService
-export { RestClientResponse, Request, SERVICE_ENDPOINT }
+export { Request, SERVICE_ENDPOINT }

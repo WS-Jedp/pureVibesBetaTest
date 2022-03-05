@@ -6,7 +6,7 @@ export const Home: React.FC = () => {
 
     useEffect(() => {
         const getData = async () => {
-            await AuthServices.get.csrf()
+            const logout = await AuthServices.post.logout() 
         }
         getData()
     }, [])
