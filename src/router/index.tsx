@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate  } from 'react-router-dom'
 import { AuthContainer } from '../containers/auth'
 import { Login } from '../pages/Login'
 import { Home } from '../pages/Home'
+import { Surveys } from '../pages/Surveys'
 
 import { RootState } from '../store'
 
@@ -27,6 +28,7 @@ export const Router = () => {
                 }
 
                 <Route path='/dashboard'  element={<Home />} />
+                <Route path='/surveys'  element={<Surveys />} />
 
                 <Route path='/login'  element={<Login />} />
                 <Route path='*' element={<Navigate to="/login" />} />

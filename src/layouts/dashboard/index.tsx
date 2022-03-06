@@ -12,16 +12,14 @@ export const DashboardLayout:React.FC = ({ children }) => {
 
     return (
         <DashboardLayoutContainer className='d-flex flex-row'>
-            <Row className='w-100'>
-                <Col xs="12" md="4">
-                    <DashboardMenu />
-                </Col>
-                <Col xs="12" md="8" className='p-4'>
-                    {
-                        children
-                    }
-                </Col>
-            </Row>
+            <Col xs="12" md="4">
+                <DashboardMenu />
+            </Col>
+            <Col xs="12" md="8" className='p-4 dashboard-children'>
+                {
+                    children
+                }
+            </Col>
         </DashboardLayoutContainer>
     )
 }
