@@ -27,4 +27,11 @@ export const GlobalStyles = createGlobalStyle`
         max-width: 100%;
         font-size: 15px;
     }
+
+    textarea {
+        background-color: rgba(0,0,0,.06);
+        padding: 12px;
+        border-top-right-radius: 12px;
+        border-top-left-radius: 12px;
+    }
 `
