@@ -6,6 +6,8 @@ import { AuthContainer } from '../containers/auth'
 import { Login } from '../pages/Login'
 import { Home } from '../pages/Home'
 import { Surveys } from '../pages/Surveys'
+import { FriendReferral } from '../pages/FriendReferral'
+import { Rules } from '../pages/Rules'
 
 import { RootState } from '../store'
 
@@ -27,8 +29,10 @@ export const Router = () => {
                     )
                 }
 
-                <Route path='/dashboard'  element={<Home />} />
+                <Route path='/home'  element={<Home />} />
                 <Route path='/surveys'  element={<Surveys />} />
+                <Route path='/invite-friend'  element={<FriendReferral />} />
+                <Route path='/rules'  element={<Rules />} />
 
                 <Route path='/login'  element={<Login />} />
                 <Route path='*' element={<Navigate to="/login" />} />

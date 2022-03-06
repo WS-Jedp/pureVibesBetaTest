@@ -26,6 +26,7 @@ export const GlobalStyles = createGlobalStyle`
         outline: none;
         max-width: 100%;
         font-size: 15px;
+        background-color: transparent;
     }
 
     textarea {
