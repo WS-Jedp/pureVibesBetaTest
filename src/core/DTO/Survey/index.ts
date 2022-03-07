@@ -1,7 +1,9 @@
+import { Question } from '../Questions'
+
 type Survey = {
     id: number
     name: string
-    questions: string
+    questions: Question[]
 }
 
 type SurveyStateObject = {
@@ -16,7 +18,7 @@ type SurveyStateObject = {
 type SurveyDTO = {
     id: number
     name: string
-    questions: string
+    questions: Question[]
 }
 
 type SurveysDTO = {
