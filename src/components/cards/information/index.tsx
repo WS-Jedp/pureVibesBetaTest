@@ -9,12 +9,13 @@ interface InformationCardProps {
     title: string
     description: string
     isDone?: boolean
+    onClick: Function
 }
 
-export const InformationCard: React.FC<InformationCardProps> = ({ Icon, description, title, isDone }) => {
+export const InformationCard: React.FC<InformationCardProps> = ({ Icon, description, title, isDone, onClick }) => {
 
     return (
-        <InformationCardContainer isDone={isDone}>
+        <InformationCardContainer isDone={isDone} onClick={() => onClick()}>
             <Row className='m-0 p-0'>
                 <Col xs="2" className='d-flex align-items-center justify-content-center information-card-icon'>
                     {

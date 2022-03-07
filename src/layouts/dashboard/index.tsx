@@ -8,7 +8,13 @@ import { QuestionAnswer } from '../../components/dashboard/questionAnswer'
 import { DashboardLayoutContainer, GoBackButton } from './styles'
 
 
-export const DashboardLayout:React.FC = ({ children }) => {
+interface DashboardLayoutProps {
+    withGoBack?: boolean
+}
+
+export const DashboardLayout:React.FC<DashboardLayoutProps> = ({ children, withGoBack }) => {
+    const navigate = useNavigate()
+
 
     return (
         <DashboardLayoutContainer className='d-flex flex-row'>
@@ -16,6 +22,13 @@ export const DashboardLayout:React.FC = ({ children }) => {
                 <DashboardMenu />
             </Col>
             <Col xs="12" md="8" className='p-4 dashboard-children'>
+                {
+                    withGoBack && (
+                        <GoBackButton onClick={() => navigate(-1)} className='text-decoration-none text-dark fw-bold'>
+                                <BsArrowLeftShort size={30} /> Go Back
+                        </GoBackButton>
+                    )
+                }
                 {
                     children
                 }

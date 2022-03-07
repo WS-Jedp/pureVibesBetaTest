@@ -25,11 +25,11 @@ export const DetailModal:React.FC<DetailModalProps> = ({ children, content, onAg
             </div>
             <div className='detail-modal-actions d-flex flex-row align-items-center justify-content-end'>
                 <InlineButton 
-                    action={onAgree}
+                    action={onClose}
                     text={closeText || "Close"}
                 />
                 <PureVibesButton 
-                    action={onClose}
+                    action={onAgree}
                     text={agreeText || "Accept"}
                 />
             </div>

@@ -46,12 +46,14 @@ export const Rules: React.FC = () => {
                     Icon={BsCardChecklist}
                     title="Responsabilites"
                     description="Everything you need to know"
+                    onClick={() => {}}
                     isDone
                 />
                 <InformationCard 
                     Icon={BsFillAwardFill}
                     title="Raffle Rules/Prize"
                     description="Everything you need to know"
+                    onClick={() => {}}
                 />
             </Row>
 

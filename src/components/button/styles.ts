@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const PureVibesButton = styled.button`
-    min-width: 240px;
+    min-width: 210px;
     width: auto;
     max-width: 330px;
     border-radius: 9px;
