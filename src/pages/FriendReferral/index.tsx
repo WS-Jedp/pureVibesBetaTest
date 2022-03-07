@@ -10,6 +10,11 @@ export const FriendReferral: React.FC = () => {
 
     const [friendInvited, setFriendInvited] = useState<boolean>(false)
 
+    const handleInvitation = () => {
+        // Logic for handle invitation service
+        setFriendInvited(true)
+    }
+
     return (
         <DashboardLayout>
             <h2 className='fw-bolder fs-1'>Friend Referral</h2>
@@ -49,7 +54,7 @@ export const FriendReferral: React.FC = () => {
 
             <PureVibesButton 
                 text='Invite'
-                action={() => {}}
+                action={handleInvitation}
             />
             {
                 friendInvited && (
@@ -58,7 +63,7 @@ export const FriendReferral: React.FC = () => {
                             title='Congratulations, you have referred a friend to participate! 🎉'
                             content='If they use the app to complete one booking, you will be rewarded with another raffle entry!!'
                             onAction={() => setFriendInvited(false)}
-                            actionText="Fuck thiks"
+                            actionText="Accept"
                         ></SimpleModal>
                     </Modal>
                 )

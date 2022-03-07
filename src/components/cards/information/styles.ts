@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 interface InformationCardContainerProps {
     isDone?: boolean
+    isDisable?: boolean
 }
 
 export const InformationCardContainer = styled.article<InformationCardContainerProps>`
@@ -16,9 +17,10 @@ export const InformationCardContainer = styled.article<InformationCardContainerP
     border-radius: 9px;
     padding: 9px;
     transition:  .3s ease-in-out;
-    cursor: pointer;
+    cursor: ${props => props.isDisable ?  'default' : 'pointer'};
     border: 3px solid ${props => props.isDone ? 'var(--color-dark-blue)' : 'transparent'};
     margin: 9px;
+    opacity: ${props => props.isDisable ? '.72' : '1'};
 
     &:hover {
         box-shadow: 0 0 21px 12px rgba(0,0,0,.2);

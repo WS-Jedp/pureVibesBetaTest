@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Col, Row } from 'reactstrap'
-import { BsCardText, BsLock, BsFillFileLock2Fill} from 'react-icons/bs'
+import { MdLockOutline, MdOutlineTextSnippet } from 'react-icons/md'
 
 import { TermsAndConditionText } from '../../utils/terms'
 import { PrivacyPolicy } from '../../utils/privacyPolicy'
@@ -17,16 +17,30 @@ export const TermsOfUse:React.FC = () => {
     const [ isPrivacyPolicyModal, setIsPrivacyPolicyModal ] = useState<boolean>(false) 
     const [ isNonClosureModalOpen, setIsNonClosureModalOpen ] = useState<boolean>(false) 
 
+    function handleTermsAndConditions() {
+        // Logic for accept terms and conditions, save it in local storage and redux store
+        setIsTermsAndConditionsModalOpen(false)
+    }
+
+    function handlePrivacyPolicy() {
+        // Logic for accept privacy policy, save it in local storage and redux store
+        setIsPrivacyPolicyModal(false)
+    }
+
+    function handleNonDisclosure() {
+        // Logic for non disclosure, save it in local storage and redux store
+        setIsNonClosureModalOpen(false)
+    }
+
+
     return (
         <DashboardLayout withGoBack>
-            
-
-            <Row>
+            <Row className='my-4'>
                 <Col xs="12" md="4">
                     <TermsCard
                         title="Terms And Conditions"
-                        Icon={BsCardText}
-                        onAction={() => {}}
+                        Icon={MdOutlineTextSnippet}
+                        onAction={() => setIsTermsAndConditionsModalOpen(true)}
                         actionText="Read all"
                         isDoneTextAction="Read again"
                     />
@@ -34,8 +48,8 @@ export const TermsOfUse:React.FC = () => {
                 <Col xs="12" md="4">
                     <TermsCard
                         title="Privacy Policy"
-                        Icon={BsLock}
-                        onAction={() => {}}
+                        Icon={MdLockOutline}
+                        onAction={() => setIsPrivacyPolicyModal(true)}
                         actionText="Read all"
                         isDoneTextAction="Read again"
                     />
@@ -43,8 +57,8 @@ export const TermsOfUse:React.FC = () => {
                 <Col xs="12" md="4">
                     <TermsCard
                         title="Non Closure"
-                        Icon={BsFillFileLock2Fill}
-                        onAction={() => {}}
+                        Icon={MdLockOutline}
+                        onAction={() => setIsNonClosureModalOpen(true)}
                         actionText="Read all"
                         isDoneTextAction="Read again"
                     />
@@ -55,7 +69,7 @@ export const TermsOfUse:React.FC = () => {
                 isTermsAndConditionsModalOpen && (
                     <Modal>
                         <DetailModal
-                            onAgree={() => {}}
+                            onAgree={handleTermsAndConditions}
                             onClose={() => setIsTermsAndConditionsModalOpen(false)}
                             title="Terms And Conditions"
                         >
@@ -69,8 +83,8 @@ export const TermsOfUse:React.FC = () => {
                 isPrivacyPolicyModal && (
                     <Modal>
                         <DetailModal
-                            onAgree={() => {}}
-                            onClose={() => {}}
+                            onAgree={handlePrivacyPolicy}
+                            onClose={() => setIsPrivacyPolicyModal(false)}
                             title="Privacy Policy"
                         >
                             <PrivacyPolicy />
@@ -83,9 +97,9 @@ export const TermsOfUse:React.FC = () => {
                 isNonClosureModalOpen && (
                     <Modal>
                         <DetailModal
-                            onAgree={() => {}}
-                            onClose={() => {}}
-                            title="Non-disclosure Agreement "
+                            onAgree={handleNonDisclosure}
+                            onClose={() => setIsNonClosureModalOpen(false)}
+                            title="Non-disclosure Agreement"
                         >
                             <NonClosure />
                         </DetailModal>

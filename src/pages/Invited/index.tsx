@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { Collapse } from 'reactstrap'
 
 import { PureVibesButton } from '../../components/button'
@@ -7,7 +8,20 @@ import { ToogleOption } from './styles'
 
 export const Invited:React.FC = () => {
 
+    const [ searchParams ] = useSearchParams()
+    const navigate = useNavigate()
     const [ isTester, setIsTester ] = useState<boolean>(false)
+
+    useEffect(() => {
+        const token = searchParams.get('token')
+
+        if(!token) {
+            navigate('/login')
+        }
+
+        // Handle logic to authenticate the user
+    }, [])
+
 
     return (
         <DashboardLayout>

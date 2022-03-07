@@ -1,3 +1,4 @@
+import { isDisabled } from '@testing-library/user-event/dist/utils'
 import React from 'react'
 import { IconType } from 'react-icons'
 import { BsArrowRightShort, BsCheckCircle } from 'react-icons/bs'
@@ -9,13 +10,20 @@ interface InformationCardProps {
     title: string
     description: string
     isDone?: boolean
+    disabled?: boolean
     onClick: Function
 }
 
-export const InformationCard: React.FC<InformationCardProps> = ({ Icon, description, title, isDone, onClick }) => {
+export const InformationCard: React.FC<InformationCardProps> = ({ Icon, description, title, isDone, onClick, disabled }) => {
+
+    function handleOnClick() {
+        if(disabled) return false
+        
+        onClick()
+    } 
 
     return (
-        <InformationCardContainer isDone={isDone} onClick={() => onClick()}>
+        <InformationCardContainer isDone={isDone} isDisable={disabled} onClick={() => handleOnClick()}>
             <Row className='m-0 p-0'>
                 <Col xs="2" className='d-flex align-items-center justify-content-center information-card-icon'>
                     {

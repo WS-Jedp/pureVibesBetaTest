@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { BsCardText } from 'react-icons/bs'
+import { MdGavel, MdOutlinePeopleAlt, MdOutlineQuiz } from 'react-icons/md'
 import { Row } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { AuthServices } from '../../services/auth'
@@ -9,6 +11,8 @@ import { DashboardLayout } from '../../layouts/dashboard'
 import { InformationCard } from '../../components/cards/information'
 
 export const Home: React.FC = () => {
+
+    const navigate = useNavigate()
 
     return (
         <DashboardLayout>
@@ -22,25 +26,25 @@ export const Home: React.FC = () => {
                     Icon={BsCardText}
                     description="Please accept Terms and Conditions before you begin the beta test."
                     title='Terms Of Use'
-                    onClick={() => {}}
+                    onClick={() => navigate('/terms-of-use')}
                 />
                 <InformationCard 
-                    Icon={BsCardText}
+                    Icon={MdGavel}
                     description="Please read the rules to be eligible to begin the beta test."
                     title='Rules'
-                    onClick={() => {}}
+                    onClick={() => navigate('/rules')}
                 />
                 <InformationCard 
-                    Icon={BsCardText}
+                    Icon={MdOutlinePeopleAlt}
                     description="Friend referrals are a way for you to earn extra raffle entries. To complete, just submit your friend's name and email address."
                     title='Friend Referral (Optional)'
-                    onClick={() => {}}
+                    onClick={() => navigate('/invite-friend')}
                 />
                 <InformationCard 
-                    Icon={BsCardText}
+                    Icon={MdOutlineQuiz}
                     description="This beta test will be administered as an interactive survey questionnaire. Questions can be saved and answered at your own pace."
                     title='BETA Test'
-                    onClick={() => {}}
+                    onClick={() => navigate('/surveys')}
                 />
             </Row>
 

@@ -19,8 +19,14 @@ export const Rules: React.FC = () => {
     const [ isOpenResponsabilitiesModal, setIsOpenResponsabilitiesModal ] = useState<boolean>(false)
     const [ isOpenRulesModal, setIsOpenRulesModal ] = useState<boolean>(false)
 
-    const handleResponsabilitiesModal = () => setIsOpenResponsabilitiesModal(!isOpenResponsabilitiesModal)
-    const handleRulesModal = () => setIsOpenRulesModal(!isOpenRulesModal)
+    const handleResponsabilitiesModal = () => {
+        // Logic for save in store and localstorage the responsabilities agreements
+        setIsOpenResponsabilitiesModal(false)
+    }
+    const handleRulesModal = () => {
+        // Logic for save in store and localstorage the responsabilities agreements
+        setIsOpenRulesModal(false)
+    }
     
 
     return (
@@ -46,14 +52,13 @@ export const Rules: React.FC = () => {
                     Icon={BsCardChecklist}
                     title="Responsabilites"
                     description="Everything you need to know"
-                    onClick={() => {}}
-                    isDone
+                    onClick={() => setIsOpenResponsabilitiesModal(true)}
                 />
                 <InformationCard 
                     Icon={BsFillAwardFill}
                     title="Raffle Rules/Prize"
                     description="Everything you need to know"
-                    onClick={() => {}}
+                    onClick={() => setIsOpenRulesModal(true)}
                 />
             </Row>
 
@@ -62,8 +67,8 @@ export const Rules: React.FC = () => {
                     <Modal>
                         <DetailModal
                             title="Responsibilities as a Beta Tester are as:"
-                            onAgree={() => {}}
-                            onClose={() => {}}
+                            onAgree={handleResponsabilitiesModal}
+                            onClose={() => setIsOpenResponsabilitiesModal(false)}
                         >
                             <RESPONSABILITIES_TEXT />    
                         </DetailModal>
@@ -76,8 +81,8 @@ export const Rules: React.FC = () => {
                     <Modal>
                         <DetailModal
                             title="Raffle Rules and Prize Information"
-                            onAgree={() => {}}
-                            onClose={() => {}}
+                            onAgree={handleRulesModal}
+                            onClose={() => setIsOpenRulesModal(false)}
                         >
                             <RAFFLE_RULES_TEXT />    
                         </DetailModal>
