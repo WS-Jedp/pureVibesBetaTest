@@ -31,7 +31,7 @@ export const termsOfUseReducer = createSlice({
     initialState,
     reducers: {
         acceptTermsAndConditios(state) {
-            state.isAllTermsAccepted = true
+            state.termsAndConditions = true
         },
         acceptPrivacyPolicy(state) {
             state.privacyPolicy = true
@@ -48,25 +48,26 @@ export const termsOfUseReducer = createSlice({
         setIsAllTermsAccepted(state, action: PayloadAction<boolean>) {
             state.isAllTermsAccepted = action.payload
         },
-        checkAllTermsAndConditions({ isAllTermsAccepted, nonClosure, privacyPolicy, responsabilities, rules, termsAndConditions }) {
-
-            if(!isAllTermsAccepted) {
+        checkAllTermsAndConditions(state) {
+            
+            if(!state.isAllTermsAccepted || !localStorage.getItem(KEY_LOCALSTORAGE_IS_ALL_TERMS_ACCEPTED)) {
                 if(localStorage.getItem(KEY_LOCALSTORAGE_IS_ALL_TERMS_ACCEPTED)) {
-                    isAllTermsAccepted = true
-                    nonClosure = true
-                    privacyPolicy = true
-                    responsabilities = true
-                    rules = true
-                    termsAndConditions = true
+                    state.isAllTermsAccepted = true
+                    state.nonClosure = true
+                    state.privacyPolicy = true
+                    state.responsabilities = true
+                    state.rules = true
+                    state.termsAndConditions = true
                 } else {
-                    if(localStorage.getItem(KEY_LOCALSTORAGE_NON_CLOSURE)) (nonClosure = true)
-                    if(localStorage.getItem(KEY_LOCALSTORAGE_PRIVACY_POLICY)) (privacyPolicy = true)
-                    if(localStorage.getItem(KEY_LOCALSTORAGE_RESPONSABILITIES)) (responsabilities = true)
-                    if(localStorage.getItem(KEY_LOCALSTORAGE_RULES)) (rules = true)
-                    if(localStorage.getItem(KEY_LOCALSTORAGE_TERMS_AND_CONDITIONS)) (termsAndConditions = true)
+
+                    if(localStorage.getItem(KEY_LOCALSTORAGE_NON_CLOSURE)) (state.nonClosure = true)
+                    if(localStorage.getItem(KEY_LOCALSTORAGE_PRIVACY_POLICY)) (state.privacyPolicy = true)
+                    if(localStorage.getItem(KEY_LOCALSTORAGE_RESPONSABILITIES)) (state.responsabilities = true)
+                    if(localStorage.getItem(KEY_LOCALSTORAGE_RULES)) (state.rules = true)
+                    if(localStorage.getItem(KEY_LOCALSTORAGE_TERMS_AND_CONDITIONS)) (state.termsAndConditions = true)
                 }
 
-                if(nonClosure && privacyPolicy && responsabilities && rules && termsAndConditions ) (isAllTermsAccepted = true)
+                if(state.nonClosure && state.privacyPolicy && state.responsabilities && state.rules && state.termsAndConditions ) (state.isAllTermsAccepted = true)
             }
         }
     }
@@ -78,7 +79,8 @@ export const {
     acceptResponsabilites,
     acceptRules,
     acceptTermsAndConditios,
-    setIsAllTermsAccepted
+    setIsAllTermsAccepted,
+    checkAllTermsAndConditions
 } = termsOfUseReducer.actions
 
 export default termsOfUseReducer.reducer

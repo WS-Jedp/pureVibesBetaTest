@@ -10,9 +10,19 @@ import { DashboardLayout } from '../../layouts/dashboard'
 
 import { InformationCard } from '../../components/cards/information'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../store'
+import { TermsOfUseState, checkAllTermsAndConditions } from '../../store/termsOfUse'
+
 export const Home: React.FC = () => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const termsOfUse = useSelector<RootState, TermsOfUseState>(state => state.termsOfUse)
+    useEffect(() => {
+        dispatch(checkAllTermsAndConditions())
+    }, [])
 
     return (
         <DashboardLayout>
@@ -27,12 +37,14 @@ export const Home: React.FC = () => {
                     description="Please accept Terms and Conditions before you begin the beta test."
                     title='Terms Of Use'
                     onClick={() => navigate('/terms-of-use')}
+                    isDone={termsOfUse.privacyPolicy && termsOfUse.nonClosure && termsOfUse.termsAndConditions}
                 />
                 <InformationCard 
                     Icon={MdGavel}
                     description="Please read the rules to be eligible to begin the beta test."
                     title='Rules'
                     onClick={() => navigate('/rules')}
+                    isDone={termsOfUse.responsabilities && termsOfUse.rules}
                 />
                 <InformationCard 
                     Icon={MdOutlinePeopleAlt}

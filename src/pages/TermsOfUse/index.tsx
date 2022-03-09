@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Col, Row } from 'reactstrap'
 import { MdLockOutline, MdOutlineTextSnippet } from 'react-icons/md'
 
@@ -10,26 +11,53 @@ import { DashboardLayout } from '../../layouts/dashboard'
 import { Modal } from '../../components/modal'
 import { DetailModal } from '../../components/modal/detailModal'
 import { TermsCard } from '../../components/cards/terms'
+import { PureVibesButton } from '../../components/button'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../store'
+import { TermsOfUseState, acceptNonClosure, acceptPrivacyPolicy, acceptTermsAndConditios } from '../../store/termsOfUse'
+import { KEY_LOCALSTORAGE_PRIVACY_POLICY, KEY_LOCALSTORAGE_NON_CLOSURE, KEY_LOCALSTORAGE_TERMS_AND_CONDITIONS  } from '../../store/termsOfUse/types'
 
 export const TermsOfUse:React.FC = () => {
+
+    const termsOfUse = useSelector<RootState, TermsOfUseState>(state => state.termsOfUse)
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+    
+    const [ isAllThreeTermsOfUseAccepted, setIsAllThreeTermsOfUseAccepted ] = useState<boolean>(false)
+
+    // Verify if all the three terms and conditions are already accepted
+    useEffect(() => {
+
+        if(termsOfUse.nonClosure && termsOfUse.nonClosure && termsOfUse.termsAndConditions) ( setIsAllThreeTermsOfUseAccepted(true) )
+
+    }, [termsOfUse.nonClosure, termsOfUse.privacyPolicy, termsOfUse.termsAndConditions])
 
     const [ isTermsAndConditionsModalOpen, setIsTermsAndConditionsModalOpen ] = useState<boolean>(false)
     const [ isPrivacyPolicyModal, setIsPrivacyPolicyModal ] = useState<boolean>(false) 
     const [ isNonClosureModalOpen, setIsNonClosureModalOpen ] = useState<boolean>(false) 
 
     function handleTermsAndConditions() {
-        // Logic for accept terms and conditions, save it in local storage and redux store
+        localStorage.setItem(KEY_LOCALSTORAGE_TERMS_AND_CONDITIONS, 'true')
+        dispatch(acceptTermsAndConditios())
         setIsTermsAndConditionsModalOpen(false)
     }
 
     function handlePrivacyPolicy() {
-        // Logic for accept privacy policy, save it in local storage and redux store
+        localStorage.setItem(KEY_LOCALSTORAGE_PRIVACY_POLICY, 'true')
+        dispatch(acceptPrivacyPolicy())
         setIsPrivacyPolicyModal(false)
     }
 
     function handleNonDisclosure() {
-        // Logic for non disclosure, save it in local storage and redux store
+        localStorage.setItem(KEY_LOCALSTORAGE_NON_CLOSURE, 'true')
+        dispatch(acceptNonClosure())
         setIsNonClosureModalOpen(false)
+    }
+
+    function handleContinueAction() {
+        navigate('/home')
     }
 
 
@@ -43,6 +71,7 @@ export const TermsOfUse:React.FC = () => {
                         onAction={() => setIsTermsAndConditionsModalOpen(true)}
                         actionText="Read all"
                         isDoneTextAction="Read again"
+                        isDone={termsOfUse.termsAndConditions}
                     />
                 </Col>
                 <Col xs="12" md="4">
@@ -52,6 +81,7 @@ export const TermsOfUse:React.FC = () => {
                         onAction={() => setIsPrivacyPolicyModal(true)}
                         actionText="Read all"
                         isDoneTextAction="Read again"
+                        isDone={termsOfUse.privacyPolicy}
                     />
                 </Col>
                 <Col xs="12" md="4">
@@ -61,9 +91,19 @@ export const TermsOfUse:React.FC = () => {
                         onAction={() => setIsNonClosureModalOpen(true)}
                         actionText="Read all"
                         isDoneTextAction="Read again"
+                        isDone={termsOfUse.nonClosure}
                     />
                 </Col>
             </Row>
+
+            {
+                isAllThreeTermsOfUseAccepted && (
+                    <PureVibesButton 
+                        action={handleContinueAction}
+                        text="Continue"
+                    />
+                )
+            }
 
             {
                 isTermsAndConditionsModalOpen && (
