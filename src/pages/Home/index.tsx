@@ -57,6 +57,7 @@ export const Home: React.FC = () => {
                     description="This beta test will be administered as an interactive survey questionnaire. Questions can be saved and answered at your own pace."
                     title='BETA Test'
                     onClick={() => navigate('/surveys')}
+                    disabled={!termsOfUse.isAllTermsAccepted}
                 />
             </Row>
 
