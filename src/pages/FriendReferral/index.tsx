@@ -16,7 +16,7 @@ export const FriendReferral: React.FC = () => {
     }
 
     return (
-        <DashboardLayout>
+        <DashboardLayout withGoBack>
             <h2 className='fw-bolder fs-1'>Friend Referral</h2>
             <p className='fs-6 fw-normal'>
                 Your friend will need to <span className='fw-bold'>use the app once</span> by scheduling and completing a booking and leave an in-app review in order for you to qualify. 

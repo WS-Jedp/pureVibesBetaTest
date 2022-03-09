@@ -30,7 +30,7 @@ export const Rules: React.FC = () => {
     
 
     return (
-        <DashboardLayout>
+        <DashboardLayout withGoBack>
             <h2 className='fw-bolder fs-1'>Rules</h2>
             <p className='fs-6 fw-normal'>
                 Welcome and thank you for being a part of the BETA testing phase of the Dharma App!
