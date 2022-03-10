@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UserDTO, User } from '../../core/DTO/User'
-import { AuthUserDTO } from '../../core/DTO/Auth'
-import { getRoles } from '@testing-library/react'
 
 export interface UserState {
     isAuth: boolean
     token: string | null
     user: User | null
     invitedBy: number | null
+    inviteFriend: boolean
 }
 
 const initialState:UserState = {
     isAuth: false,
     token: null,
     user: null,
-    invitedBy: null
+    invitedBy: null,
+    inviteFriend: false
 }
 
 export const userSlice = createSlice({
@@ -39,9 +39,12 @@ export const userSlice = createSlice({
             state.invitedBy = null
             state.user = null
             state.token = null
+        },
+        inviteFriend(state) {
+            state.inviteFriend = true
         }
     }
  })
 
-export const { removeToken, removeUser, setAuth, setToken, setUser } = userSlice.actions
+export const { removeToken, removeUser, setAuth, setToken, setUser, inviteFriend } = userSlice.actions
 export default userSlice.reducer

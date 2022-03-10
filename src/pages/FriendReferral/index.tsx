@@ -6,12 +6,19 @@ import { PureVibesButton } from '../../components/button'
 import { Modal } from '../../components/modal'
 import { SimpleModal } from '../../components/modal/simpleModal'
 
+import { useDispatch } from 'react-redux'
+import { inviteFriend } from '../../store/user'
+import { KEY_LOCALSTORAGE_INVITE_FRIEND } from '../../store/user/types'
+
 export const FriendReferral: React.FC = () => {
+    const dispatch = useDispatch()
 
     const [friendInvited, setFriendInvited] = useState<boolean>(false)
 
     const handleInvitation = () => {
         // Logic for handle invitation service
+        localStorage.setItem(KEY_LOCALSTORAGE_INVITE_FRIEND, 'true')
+        dispatch(inviteFriend())
         setFriendInvited(true)
     }
 

@@ -13,6 +13,8 @@ import { InformationCard } from '../../components/cards/information'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store'
 import { TermsOfUseState, checkAllTermsAndConditions } from '../../store/termsOfUse'
+import { inviteFriend } from '../../store/user'
+import { KEY_LOCALSTORAGE_INVITE_FRIEND } from '../../store/user/types'
 
 export const Home: React.FC = () => {
 
@@ -22,6 +24,17 @@ export const Home: React.FC = () => {
     const termsOfUse = useSelector<RootState, TermsOfUseState>(state => state.termsOfUse)
     useEffect(() => {
         dispatch(checkAllTermsAndConditions())
+    }, [])
+
+
+    const isFriendInvited:boolean = useSelector<RootState, boolean>(state => state.user.inviteFriend)
+    useEffect(() => {
+        const lastIsFriendInvitedState = localStorage.getItem(KEY_LOCALSTORAGE_INVITE_FRIEND)
+
+        if(lastIsFriendInvitedState) {
+            dispatch(inviteFriend())
+            return
+        }
     }, [])
 
     return (
@@ -51,6 +64,7 @@ export const Home: React.FC = () => {
                     description="Friend referrals are a way for you to earn extra raffle entries. To complete, just submit your friend's name and email address."
                     title='Friend Referral (Optional)'
                     onClick={() => navigate('/invite-friend')}
+                    isDone={isFriendInvited}
                 />
                 <InformationCard 
                     Icon={MdOutlineQuiz}
