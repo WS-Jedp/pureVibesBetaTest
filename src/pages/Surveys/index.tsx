@@ -48,6 +48,15 @@ export const Surveys:React.FC = () => {
 
     }
 
+    const [isAllSurveysFinished, setIsAllSurveysFinishesd] = useState<boolean>(false)
+    useEffect(() => {
+        if(surveyState.allSurveys.length === 0) return
+        if(surveyState.surveysFinished.length === surveyState.allSurveys.length) (setIsAllSurveysFinishesd(true))
+    }, [surveyState.surveysFinished])
+
+
+    
+
     return (
         <DashboardLayout withGoBack>
 
@@ -89,7 +98,11 @@ export const Surveys:React.FC = () => {
                 )
             }
 
-            
+            {
+                isAllSurveysFinished && (
+                    <h3>Congratulations, you already finish all the BETA test surveys!</h3>
+                )
+            }
 
 
         

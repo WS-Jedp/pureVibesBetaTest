@@ -18,6 +18,7 @@ export const QuestionAnswer:React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const allFinishedSurveys = useSelector<RootState, number[]>(state => state.surveys.surveysFinished)
     const currentSurvey = useSelector<RootState, CurrentSurvey>(state => state.surveys.currentSurvey)
     const answers = useSelector<RootState, AnswersState>(state => state.answers)
 
@@ -52,6 +53,11 @@ export const QuestionAnswer:React.FC = () => {
         setAnswer(null)
 
         if(currentSurvey.currentQuestion + 1 === currentSurvey.totalQuestions) {
+            if(allFinishedSurveys.some(surveyID => surveyID === currentSurvey.id)) {
+                // Logic to show erorr message
+                navigate('/surveys')
+                return
+            }
             dispatch(addSurveyIntoFinished(currentSurvey.id))
             dispatch(setNewCurrentSurvey(currentSurvey.id + 1))
             await saveSurveyAnswers()
