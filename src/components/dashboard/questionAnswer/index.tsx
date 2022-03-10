@@ -99,14 +99,14 @@ export const QuestionAnswer:React.FC = () => {
             <AnswerOption 
                 questionType={currentQuestion.type}
                 setState={setAnswer}
-                defaultValue={answer ? answer : null}
+                defaultValue={answer}
             />
 
             <div className='d-flex flex-column justify-content-center align-items-center '>
                 <PureVibesButton 
                     action={handleSaveAnswers}
                     text={currentSurvey.currentQuestion + 1 === currentSurvey.totalQuestions ? "Finish" : "Next Question"}
-                    isDisable={!answer}
+                    isDisable={typeof answer === 'boolean' ? false : !answer}
                 />
                 {
                     currentSurvey.currentQuestion >= 1 && (
