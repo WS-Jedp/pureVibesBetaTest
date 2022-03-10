@@ -7,7 +7,7 @@ import { DashboardLayout } from '../../layouts/dashboard'
 import { SurveysMock } from '../../mocks/surveys'
 
 import { SurveyCard } from '../../components/cards/survey'
-import { setNewCurrentSurvey } from '../../store/answers'
+import { AnswersState, setNewCurrentSurvey } from '../../store/answers'
 
 export const Surveys:React.FC = () => {
 
@@ -27,13 +27,25 @@ export const Surveys:React.FC = () => {
         getSurveys()
     }, [])
 
-    function getAvailableStateOfSurvey(surveyID: number) {
+    function isAvailable(surveyID: number): boolean {
 
-        if(!surveyState.currentSurvey && surveyID === 1) return false
+        if(surveyState.currentSurvey) {
+            const currentSurvey = surveyState.currentSurvey
+            const currentSurveyIsDone = surveyState.surveysFinished.find(surveyID => surveyID === currentSurvey.id)
 
-        if(surveyState.currentSurvey && surveyState.currentSurvey.id + 1 === surveyID) return false
+            if(currentSurveyIsDone) {
+                return currentSurvey.id + 1 === surveyID
+            }
 
-        return true
+            return currentSurvey.id === surveyID
+        }
+
+        if(surveyID === 1) {
+            return true
+        }
+
+        return false
+
     }
 
     return (
@@ -68,7 +80,7 @@ export const Surveys:React.FC = () => {
                                         name={survey.name}
                                         questionsDone={0}
                                         totalQuestion={5}
-                                        isDisable={getAvailableStateOfSurvey(survey.id)} 
+                                        isDisable={!isAvailable(survey.id)} 
                                     />
                                 </li>
                             ))

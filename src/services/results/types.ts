@@ -4,7 +4,7 @@ type NewAnswers = {
         question_id: number
         answer: any
         text?: string
-    }
+    }[]
 }
 
 type updateAnswers = {

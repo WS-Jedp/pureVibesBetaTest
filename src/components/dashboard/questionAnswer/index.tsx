@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { Question, QUESTION_TYPE } from '../../../core/DTO/Questions'
+import { Question } from '../../../core/DTO/Questions'
 import { DashboardQuestionAnswserContainer } from './styles'
 import { PureVibesButton, InlineButton } from '../../button'
+
+import { RoleService } from '../../../services/results'
 
 import { AnswerOption } from '../../../containers/AnswerOption'
 import { RootState } from '../../../store'
@@ -19,8 +21,30 @@ export const QuestionAnswer:React.FC = () => {
     const currentSurvey = useSelector<RootState, CurrentSurvey>(state => state.surveys.currentSurvey)
     const answers = useSelector<RootState, AnswersState>(state => state.answers)
 
+    async function saveSurveyAnswers() {
+
+        const currentSurveyAnswers = {
+            survey_id: currentSurvey.id,
+            answers: answers.answers
+        }
+
+        // const resp = await RoleService.post.saveAnswers(currentSurveyAnswers)
+
+        // if(!resp.error) return false
+
+        // if(resp.response.created) {
+        //     setAnswer(null)
+        //     navigate('/surveys')
+        //     return true
+        // }
+        
+        console.log("Answers saved it")
+        navigate('/surveys')
+
+    }
+
     const [answer, setAnswer] = useState<any>()
-    function handleSaveAnswers() {
+    async function handleSaveAnswers() {
         dispatch(addNewAnswer({
             answer,
             question_id: currentQuestion.id,
@@ -30,7 +54,7 @@ export const QuestionAnswer:React.FC = () => {
         if(currentSurvey.currentQuestion + 1 === currentSurvey.totalQuestions) {
             dispatch(addSurveyIntoFinished(currentSurvey.id))
             dispatch(setNewCurrentSurvey(currentSurvey.id + 1))
-            navigate('/surveys')
+            await saveSurveyAnswers()
             return
         }
 
