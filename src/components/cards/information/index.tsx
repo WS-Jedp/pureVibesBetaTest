@@ -39,7 +39,11 @@ export const InformationCard: React.FC<InformationCardProps> = ({ Icon, descript
                     <small>{description}</small>    
                 </Col>
                 <Col xs="2" className='d-flex align-items-center justify-content-center'>
-                    <BsArrowRightShort size={30} />
+                    {
+                        !isDone && (
+                            <BsArrowRightShort size={30} />
+                        )
+                    }
                 </Col>
             </Row>
         </InformationCardContainer>

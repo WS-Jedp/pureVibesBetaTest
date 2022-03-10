@@ -6,7 +6,7 @@ import { SurveyCard } from '../../components/cards/survey'
 export const Surveys:React.FC = () => {
 
     return (
-        <DashboardLayout>
+        <DashboardLayout withGoBack>
 
             <h2 className='fw-bolder fs-1'>BETA Test</h2>
             <p className='fs-6 fw-normal'>
