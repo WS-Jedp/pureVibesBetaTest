@@ -11,18 +11,22 @@ interface SurveyCardProps {
     totalQuestion: number
     questionsDone: number
     isDone: boolean
+    isDisable?: boolean
 }
 
-export const SurveyCard:React.FC<SurveyCardProps> = ({ isDone, name, questionsDone, totalQuestion, id }) => {
+export const SurveyCard:React.FC<SurveyCardProps> = ({ isDone, name, questionsDone, totalQuestion, id, isDisable }) => {
 
     const navigate = useNavigate()
 
-    const goToSurvey = () => navigate(`/dashboard/survey/${id}`)
+    const goToSurvey = () => {
+        if(isDisable) return false
+        navigate(`/dashboard/survey/${id}`)
+    }
 
     return (
-        <SurveyCardContainer isDone={isDone} onClick={goToSurvey}>
-            <Row className='m-0 p-0'>
-                <Col xs="2" className='d-flex align-items-center justify-content-center survey-card-state p-0 m-0'>
+        <SurveyCardContainer isDisable={isDisable} isDone={isDone} onClick={goToSurvey}>
+            <Row className='m-0 p-0 h-100'>
+                <Col xs="2" className='d-flex align-items-center justify-content-center survey-card-state p-0 m-0 h-100'>
                     {
                         isDone ? (
                             <BsFillCheckCircleFill size={24} color="white" />

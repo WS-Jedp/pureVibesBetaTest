@@ -1,4 +1,4 @@
-import { SurveyDTO, SurveysDTO } from '../../core/DTO/Survey'
+import { SurveyDTO, SurveysDTO, SurveyStateObject } from '../../core/DTO/Survey'
 import { questions } from '../questions'
 
 export const SurveysMock: SurveysDTO = [
@@ -16,8 +16,11 @@ export const SurveysMock: SurveysDTO = [
     },
 ]
 
-export const SurveyMock: SurveyDTO = {
-    id: 1,
-    name: 'Mock survey 1',
-    questions: questions 
-}
+export const IndividualSurveysMock: (SurveyDTO & SurveyStateObject)[] = SurveysMock.map(survey => ({
+    ...survey,
+    questions,
+    answersTotal: 0,
+    isComplete: false,
+    questionTotal: questions.length,
+    survey_id: survey.id,
+}))

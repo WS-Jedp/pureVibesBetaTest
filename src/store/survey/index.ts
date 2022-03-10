@@ -46,6 +46,9 @@ export const surveysSlice = createSlice({
             state.allSurveys = state.allSurveys
                 .filter(survey => survey.id !== action.payload)
         },
+        setNewQuestion(state, action: PayloadAction<number>) {
+            state.currentSurvey.currentQuestion = action.payload
+        }
      }
 })
 
@@ -57,7 +60,8 @@ export const {
     removeSurveysFinished,
     setAllSurveys,
     setAllSurveysFinished,
-    setCurrentSurvey
+    setCurrentSurvey,
+    setNewQuestion
 } = surveysSlice.actions
 
 export default surveysSlice.reducer

@@ -1,35 +1,91 @@
-import React, { useState } from 'react'
-import { QUESTION_TYPE } from '../../../core/DTO/Questions'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { Question, QUESTION_TYPE } from '../../../core/DTO/Questions'
 import { DashboardQuestionAnswserContainer } from './styles'
 import { PureVibesButton, InlineButton } from '../../button'
 
 import { AnswerOption } from '../../../containers/AnswerOption'
+import { RootState } from '../../../store'
+import { addNewAnswer, AnswersState, setNewCurrentSurvey } from '../../../store/answers'
+import { setNewQuestion, addSurveyIntoFinished, setCurrentSurvey } from '../../../store/survey'
+import { CurrentSurvey } from '../../../store/survey/types'
 
 export const QuestionAnswer:React.FC = () => {
 
-    const [isBoolean, setIsBoolean] = useState<boolean>(false)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const currentSurvey = useSelector<RootState, CurrentSurvey>(state => state.surveys.currentSurvey)
+    const answers = useSelector<RootState, AnswersState>(state => state.answers)
+
+    const [answer, setAnswer] = useState<any>()
+    function handleSaveAnswers() {
+        dispatch(addNewAnswer({
+            answer,
+            question_id: currentQuestion.id,
+        }))
+        setAnswer(null)
+
+        if(currentSurvey.currentQuestion + 1 === currentSurvey.totalQuestions) {
+            dispatch(addSurveyIntoFinished(currentSurvey.id))
+            dispatch(setNewCurrentSurvey(currentSurvey.id + 1))
+            navigate('/surveys')
+            return
+        }
+
+        dispatch(setNewQuestion(currentSurvey.currentQuestion + 1))
+    }
+
+    function goToLastQuestion() {
+        const newQuestionPosition = currentSurvey.currentQuestion - 1
+        const currentAnswer = answers.answers.find(answer => answer.question_id === currentSurvey.questions[newQuestionPosition].id)
+        setAnswer(currentAnswer.answer)
+        dispatch(setNewQuestion(newQuestionPosition))
+    }
+
+    const [currentQuestion, setCurrentQuestion] = useState<Question>()
+    
+    useEffect(() => {
+        if(!currentSurvey) return
+        const question = currentSurvey.questions[currentSurvey.currentQuestion]
+        setCurrentQuestion(question)
+    }, [currentSurvey])
+
+
+    if(!currentSurvey || !currentQuestion) return (
+        <DashboardQuestionAnswserContainer className='p-4 h-100 d-flex flex-column align-items-center justify-content-around'>
+            <h3>Please try to select a survey again</h3>
+        </DashboardQuestionAnswserContainer>
+    )
 
     return (
         <DashboardQuestionAnswserContainer className='p-4 h-100 d-flex flex-column align-items-center justify-content-around'>
-            <h3 className='fs-6 fw-bolder'>Question #4/5</h3>
+            <h3 className='fs-6 fw-bolder'>Question #{currentSurvey.currentQuestion + 1}/{currentSurvey.totalQuestions}</h3>
             <p className='text-center fw-bold fs-6'>
-                Tell a little bit about yourself, like what are your dreams and all that kind of stuff
+                { currentQuestion.question }
             </p>
 
             <AnswerOption 
-                questionType={QUESTION_TYPE.BOOLEAN}
-                setState={setIsBoolean}
+                questionType={currentQuestion.type}
+                setState={setAnswer}
+                defaultValue={answer ? answer : null}
             />
 
             <div className='d-flex flex-column justify-content-center align-items-center '>
                 <PureVibesButton 
-                    action={() => {}}
-                    text="Next Question"
-                    />
-                <InlineButton 
-                    action={() => {}}
-                    text="Previous Question"
+                    action={handleSaveAnswers}
+                    text={currentSurvey.currentQuestion + 1 === currentSurvey.totalQuestions ? "Finish" : "Next Question"}
+                    isDisable={!answer}
                 />
+                {
+                    currentSurvey.currentQuestion >= 1 && (
+                        <InlineButton 
+                            action={goToLastQuestion}
+                            text="Previous Question"
+                        />
+                    )
+                }
             </div>
         </DashboardQuestionAnswserContainer>
 
