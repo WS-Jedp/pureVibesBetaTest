@@ -1,10 +1,11 @@
 import React from 'react'
 
 interface TextOptionAnswer {
-    setState: React.SetStateAction<string>
+    setState: React.Dispatch<React.SetStateAction<string>>
+    defaultValue?: string
 }
 
-export const Text:React.FC<TextOptionAnswer> = ({ setState }) => {
+export const Text:React.FC<TextOptionAnswer> = ({ setState, defaultValue }) => {
 
     return (
         <article>
@@ -15,6 +16,8 @@ export const Text:React.FC<TextOptionAnswer> = ({ setState }) => {
                 rows={4}
                 placeholder="Write your answer here"
                 className='w-100'
+                onChange={(ev) => setState(ev.currentTarget.value)}
+                defaultValue={defaultValue}
             >
             </textarea>
         </article>

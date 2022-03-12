@@ -6,6 +6,7 @@ import { AuthContainer } from '../containers/auth'
 import { Login } from '../pages/Login'
 import { Home } from '../pages/Home'
 import { Surveys } from '../pages/Surveys'
+import { Survey } from '../pages/Survey'
 import { FriendReferral } from '../pages/FriendReferral'
 import { Rules } from '../pages/Rules'
 import { TermsOfUse } from '../pages/TermsOfUse'
@@ -33,6 +34,7 @@ export const Router = () => {
 
                 <Route path='/home'  element={<Home />} />
                 <Route path='/surveys'  element={<Surveys />} />
+                <Route path='/dashboard/survey/:surveyID'  element={<Survey />} />
                 <Route path='/invite-friend'  element={<FriendReferral />} />
                 <Route path='/rules'  element={<Rules />} />
                 <Route path='/terms-of-use'  element={<TermsOfUse />} />

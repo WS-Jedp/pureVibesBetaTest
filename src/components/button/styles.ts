@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const PureVibesButton = styled.button`
+interface PureVibeButtons {
+    isDisable?: boolean
+}
+
+export const PureVibesButton = styled.button<PureVibeButtons>`
     min-width: 210px;
     width: auto;
     max-width: 330px;
@@ -14,10 +18,12 @@ export const PureVibesButton = styled.button`
     transition: .4s ease-in-out;
     box-shadow: -12px 8px 42px 12px rgba(75, 115, 196, .49);
     outline: none;
+    opacity: ${props => props.isDisable ? '.3' : '1'};
+    cursor: ${props => props.isDisable ? 'default' : 'pointer'};
 
     &:hover {
-        box-shadow: -12px 8px 36px 12px rgba(75, 115, 196, .5);
-        opacity: .8;
+        box-shadow: ${props => props.isDisable ? '-12px 8px 42px 12px rgba(75, 115, 196, .49)' : '-12px 8px 36px 12px rgba(75, 115, 196, .5)'};
+        opacity: ${props => props.isDisable ? '.3' : '.8)'};
     }
 
     &:active {
@@ -26,7 +32,7 @@ export const PureVibesButton = styled.button`
     }
 `
 
-export const PureVibesButtonAlternative = styled.button`
+export const PureVibesButtonAlternative = styled.button<PureVibeButtons>`
     min-width: 240px;
     width: auto;
     max-width: 330px;
@@ -40,6 +46,8 @@ export const PureVibesButtonAlternative = styled.button`
     transition: .4s ease-in-out;
     box-shadow: -12px 8px 30px 3px rgba(255, 255, 255, .1);
     outline: none;
+    opacity: ${props => props.isDisable ? '.3' : '1'};
+    cursor: ${props => props.isDisable ? 'default' : 'pointer'};
 
     &:hover {
         box-shadow: -12px 8px 30px 6px rgba(255, 255, 255, .1);
@@ -53,11 +61,13 @@ export const PureVibesButtonAlternative = styled.button`
     }
 `
 
-export const InlineButton = styled.button`
+export const InlineButton = styled.button<PureVibeButtons>`
     background-color: transparent;
     color: var(--color-dark);
     outline: none;
     font-weight: 600;
     border: none;
     margin: 9px;
+    opacity: ${props => props.isDisable ? '.3' : '1'};
+    cursor: ${props => props.isDisable ? 'default' : 'pointer'};
 `

@@ -2,10 +2,11 @@ import React from 'react'
 import { RateOptionsContainer } from './styles'
 
 interface RateOptionAnswer {
-    setState: React.SetStateAction<number>
+    setState: React.Dispatch<React.SetStateAction<number>>
+    defaultValue?: number
 }
 
-export const Rate:React.FC<RateOptionAnswer> = ({ setState }) => {
+export const Rate:React.FC<RateOptionAnswer> = ({ setState, defaultValue }) => {
 
     const RATE_AMOUNT = [1,2,3,4,5]
 
@@ -23,7 +24,7 @@ export const Rate:React.FC<RateOptionAnswer> = ({ setState }) => {
                                 <span className='fw-bold'>
                                         {rate}
                                 </span>
-                                <input type="radio" name="rate" value={rate} id={`rate-${rate}`} />
+                                <input type="radio" name="rate" value={rate} id={`rate-${rate}`} onChange={() => setState(rate)} defaultChecked={defaultValue === rate} />
                             </label>
                         </RateOptionsContainer>
                     ))
