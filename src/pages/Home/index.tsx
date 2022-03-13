@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { BsCardText } from 'react-icons/bs'
 import { MdGavel, MdOutlinePeopleAlt, MdOutlineQuiz } from 'react-icons/md'
 import { Row } from 'reactstrap'
-import { Link } from 'react-router-dom'
-import { AuthServices } from '../../services/auth'
 
 import { DashboardLayout } from '../../layouts/dashboard'
 
@@ -13,14 +11,17 @@ import { InformationCard } from '../../components/cards/information'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store'
 import { TermsOfUseState, checkAllTermsAndConditions } from '../../store/termsOfUse'
-import { inviteFriend } from '../../store/user'
+import { betaTestDone, inviteFriend } from '../../store/user'
 import { KEY_LOCALSTORAGE_INVITE_FRIEND } from '../../store/user/types'
+import { SurveysService } from '../../services/surveys'
 
 export const Home: React.FC = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const userID = useSelector<RootState, number>(state => state.user.user.id)
+    const isBetaTestDone = useSelector<RootState, boolean>(state => state.user.isBetaTestDone)
     const termsOfUse = useSelector<RootState, TermsOfUseState>(state => state.termsOfUse)
     useEffect(() => {
         dispatch(checkAllTermsAndConditions())
@@ -35,6 +36,22 @@ export const Home: React.FC = () => {
             dispatch(inviteFriend())
             return
         }
+    }, [])
+
+    useEffect(() => {
+        async function getBetaTestState() {
+            const isBetaTestDoneResp = await SurveysService.get.userBetaTestState(userID)
+            if(isBetaTestDoneResp.error) {
+                console.error("We sorry, we couldn't get the state of the beta test")
+                return
+            }
+
+            const betaTestState = isBetaTestDoneResp.response
+
+            if(betaTestState.isBetaTestDone) dispatch(betaTestDone())
+        }
+
+        !isBetaTestDone && getBetaTestState()
     }, [])
 
     return (
@@ -72,6 +89,7 @@ export const Home: React.FC = () => {
                     title='BETA Test'
                     onClick={() => navigate('/surveys')}
                     disabled={!termsOfUse.isAllTermsAccepted}
+                    isDone={isBetaTestDone}
                 />
             </Row>
 

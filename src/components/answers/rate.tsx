@@ -24,7 +24,7 @@ export const Rate:React.FC<RateOptionAnswer> = ({ setState, defaultValue }) => {
                                 <span className='fw-bold'>
                                         {rate}
                                 </span>
-                                <input type="radio" name="rate" value={rate} id={`rate-${rate}`} onChange={() => setState(rate)} defaultChecked={defaultValue === rate} />
+                                <input type="radio" name="rate" value={rate} id={`rate-${rate}`} onChange={() => setState(rate)}  checked={defaultValue === rate} />
                             </label>
                         </RateOptionsContainer>
                     ))

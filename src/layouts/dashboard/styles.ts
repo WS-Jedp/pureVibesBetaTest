@@ -25,5 +25,16 @@ export const DashboardLayoutContainer = styled.section`
 export const GoBackButton = styled.button`
     background-color: transparent;
     border: none;
-    outline: none
+    outline: none;
+`
+
+export const ImagesSurveyContainer = styled.article`
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
 `

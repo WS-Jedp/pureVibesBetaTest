@@ -7,6 +7,7 @@ export interface UserState {
     user: User | null
     invitedBy: number | null
     inviteFriend: boolean
+    isBetaTestDone: boolean
 }
 
 const initialState:UserState = {
@@ -14,7 +15,8 @@ const initialState:UserState = {
     token: null,
     user: null,
     invitedBy: null,
-    inviteFriend: false
+    inviteFriend: false,
+    isBetaTestDone: false
 }
 
 export const userSlice = createSlice({
@@ -42,9 +44,15 @@ export const userSlice = createSlice({
         },
         inviteFriend(state) {
             state.inviteFriend = true
+        },
+        betaTestDone(state) {
+            state.isBetaTestDone = true
+        },
+        betaTestNotDone(state) {
+            state.isBetaTestDone = false
         }
     }
  })
 
-export const { removeToken, removeUser, setAuth, setToken, setUser, inviteFriend } = userSlice.actions
+export const { removeToken, removeUser, setAuth, setToken, setUser, inviteFriend, betaTestDone, betaTestNotDone } = userSlice.actions
 export default userSlice.reducer

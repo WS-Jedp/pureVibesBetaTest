@@ -3,7 +3,7 @@ import { NewAnswers, updateAnswers } from './types'
 import request, { SERVICE_ENDPOINT } from '../request'
 import ServiceResponse from '../response'
 
-export const RoleService = {
+export const ResultsService = {
     get: {
         async answers(): Promise<ServiceResponse<AnswersDTO | null>> {
             request.setAuthHeaders()

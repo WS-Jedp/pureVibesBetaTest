@@ -40,6 +40,8 @@ export const surveysSlice = createSlice({
             state.allSurveys.push({
                 id: action.payload.id,
                 name: action.payload.name,
+                questionsTotal: action.payload.questions.length,
+                answersTotal: 0
             })
         },
         removeSurvey(state, action: PayloadAction<number>) {

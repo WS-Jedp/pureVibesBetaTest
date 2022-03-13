@@ -22,6 +22,10 @@ export const answersSlice = createSlice({
         addNewAnswer(state, action: PayloadAction<Answer>) {
             state.answers.push(action.payload)
         },
+        updateAnswer(state, action: PayloadAction<Answer>) {
+            const currentAnswer = state.answers.find(answer => answer.question_id === action.payload.question_id)
+            currentAnswer.answer = action.payload.answer
+        },
         removeAnswer(state, action: PayloadAction<number>) {
             state.answers = state.answers
                 .filter(answer => answer.question_id !== action.payload)
@@ -35,6 +39,7 @@ export const answersSlice = createSlice({
 
 export const {
     addNewAnswer,
+    updateAnswer,
     removeAnswer,
     removeCurrentAnswers,
     setNewCurrentSurvey

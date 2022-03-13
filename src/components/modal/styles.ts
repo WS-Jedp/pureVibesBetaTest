@@ -10,4 +10,5 @@ export const ModalContainer = styled.section`
     align-items: center;
     justify-content: center;
     background-color: rgba(0,0,0,.81);
+    z-index: 999;
 `

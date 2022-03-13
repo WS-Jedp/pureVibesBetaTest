@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { Row, Col } from 'reactstrap'
 import { DashboardMenu } from '../../components/dashboard/menu'
+import { Loading } from '../../containers/loading'
 import { QuestionAnswer } from '../../components/dashboard/questionAnswer'
 
-import { DashboardLayoutContainer, GoBackButton } from './styles'
+import { DashboardLayoutContainer, GoBackButton, ImagesSurveyContainer } from './styles'
 import { RootState } from '../../store'
 import { CurrentSurvey } from '../../store/survey/types'
 
@@ -40,7 +41,11 @@ export const DashboardLayout:React.FC<DashboardLayoutProps> = ({ children, withG
     )
 }
 
-export const DashboardSurveyLayout:React.FC = ({ children }) => {
+interface DashboardSurveyLayoutProps {
+    isLoading?: boolean
+}
+
+export const DashboardSurveyLayout:React.FC<DashboardSurveyLayoutProps> = ({ children, isLoading }) => {
     const navigate = useNavigate()
     const currentSurvey = useSelector<RootState, CurrentSurvey>(state => state.surveys.currentSurvey)
 
@@ -52,14 +57,16 @@ export const DashboardSurveyLayout:React.FC = ({ children }) => {
                 </Col>
                 <Col xs="12" md="8" className='m-0 p-0 h-100'>
                     <Row className='m-0 p-0 h-100'>
-                        <Col xs="7" className='m-0 p-4'>
+                        <Col xs="7" className='m-0 p-4 dashboard-children'>
                             <GoBackButton onClick={() => navigate(-1)} className='text-decoration-none text-dark fw-bold'>
                                 <BsArrowLeftShort size={30} /> Go Back
                             </GoBackButton>
                             <h2 className='fs-1 fw-bold'>Beta Test</h2>
 
                             {
-                                !currentSurvey ? (
+                                isLoading ? (
+                                    <Loading />
+                                ) : !currentSurvey ? (
                                     <section>
                                         <h3>There is no current survey selected</h3>
                                         <p>
@@ -67,10 +74,17 @@ export const DashboardSurveyLayout:React.FC = ({ children }) => {
                                         </p>
                                     </section>
                                 ) : (
-                                    <>
-                                        <h3 className='fs-4 fw-bold'>{ currentSurvey.name }</h3>
-                                        <p className='fs-6 fw-normal'>Answer each one of the questions of the {currentSurvey.name} survey to be able to answer the next survey</p>
-                                    </>
+                                    <ImagesSurveyContainer>
+                                        <div>
+                                            <h3 className='fs-4 fw-bold'>{ currentSurvey.name }</h3>
+                                            <p className='fs-6 fw-normal'>Answer each one of the questions of the {currentSurvey.name} survey to be able to answer the next survey</p>
+                                        </div>
+                                        <article className='w-100 m-0 p-0'>
+                                            {
+                                                children
+                                            }
+                                        </article>
+                                    </ImagesSurveyContainer>
                                 )
                             }
 
