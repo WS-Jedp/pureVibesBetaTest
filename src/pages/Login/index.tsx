@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Alert } from 'reactstrap'
 import { RouteProps, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { LoginForm } from './types'
@@ -22,9 +23,9 @@ export const Login:React.FC<RouteProps> = () => {
 
     const { register, handleSubmit, formState: { errors }} = useForm<LoginForm>()
 
-    const userState = useSelector<RootState, UserState>(state => state.user)
     const dispatch = useDispatch()
 
+    const [isAuthError, setIsAuthError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const getUser = async () => {
@@ -32,6 +33,7 @@ export const Login:React.FC<RouteProps> = () => {
 
         if(userResp.error) {
             console.error("Your session was caducated, login again")
+            setIsAuthError("Your session was caducated, login again")
             setIsLoading(false)
             return
         }
@@ -48,6 +50,7 @@ export const Login:React.FC<RouteProps> = () => {
 
         if(authResp.error) {
             console.error("Bad credentials")
+            setIsAuthError("Bad credentials")
             setIsLoading(false)
             return
         }
@@ -56,6 +59,7 @@ export const Login:React.FC<RouteProps> = () => {
         localStorage.setItem(AUTH_KEY_LOCAL_STORAGE, auth.token)
         dispatch(setToken(auth.token))
         dispatch(setAuth(true))
+        dispatch(setRole(auth.role.name as ROLE))
 
         const user = await getUser()
 
@@ -78,7 +82,6 @@ export const Login:React.FC<RouteProps> = () => {
                 navigate('/home')
             }
         }
-
         automaticallyAuth()
     }, [])
 
@@ -93,7 +96,13 @@ export const Login:React.FC<RouteProps> = () => {
                     <h3 className='fw-bold fs-4'>Sign In</h3>
                     <p className='fs-light fs-6'>Sign in to begin the beta test!</p>
                 </div>
-
+                {
+                    isAuthError && (
+                        <small className='text-danger'>
+                            * { isAuthError }
+                        </small>
+                    )
+                }
                 <form onSubmit={handleSubmit(onLogin)} className='my-3 w-100 px-1 d-flex flex-column align-items-center justify-content-center'>
                     <label htmlFor="email" className='my-2 w-100'>
                         <strong className='fw-bold fs-6'>Email</strong>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { Collapse } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -20,7 +20,7 @@ import { ToogleOption } from './styles'
 
 export const Invited:React.FC = () => {
 
-    const params = useParams<{token: string}>()
+    const [search, setSearch] = useSearchParams()
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
@@ -31,13 +31,27 @@ export const Invited:React.FC = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        const token = params.token
+        const email = search.get('email')
+        const tmpPassword = search.get('tmpPass')
 
-        if(!token) {
+        if(!email || !tmpPassword) {
             navigate('/login')
         }
 
         async function authenticateUser() {
+            const authResp = await AuthServices.post.login({
+                email: email,
+                password: tmpPassword
+            })
+
+            if(authResp.error) {
+                console.error('Ban credentials!')
+                navigate('/login')
+                return
+            }
+
+            const token = authResp.response.token
+            localStorage.clear()
             localStorage.setItem(AUTH_KEY_LOCAL_STORAGE, token)
             const userResp = await AuthServices.get.user()
             if(userResp.error) {
@@ -171,9 +185,6 @@ export const Invited:React.FC = () => {
                                         </strong>
                                     </li>
                                 </ol>
-
-
-
                             </Collapse>
                         </ToogleOption>
 

@@ -43,7 +43,7 @@ export const Router = () => {
                 }
 
                 <Route path='/login'  element={<Login />} />
-                <Route path='/invited/:token'  element={<Invited />} />
+                <Route path='/invited'  element={<Invited />} />
                 <Route path='*' element={<Navigate to="/login" />} />
             </Routes>
         </BrowserRouter>

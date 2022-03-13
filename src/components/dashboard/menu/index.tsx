@@ -11,6 +11,7 @@ import { Loading } from '../../../containers/loading'
 import { PureVibesButtonAlternative } from '../../button'
 import { DashboardMenuContainter, QuickLinks } from './styles'
 import { AUTH_KEY_LOCAL_STORAGE } from '../../../core/DTO/Auth'
+import { removeRole } from '../../../store/role'
 
 export const DashboardMenu:React.FC = () => {
 
@@ -31,6 +32,7 @@ export const DashboardMenu:React.FC = () => {
         }
 
         localStorage.removeItem(AUTH_KEY_LOCAL_STORAGE)
+        dispatch(removeRole())
         dispatch(removeUser())
         navigate('/login')
     }
