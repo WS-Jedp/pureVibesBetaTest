@@ -51,10 +51,19 @@ export const DashboardMenu:React.FC = () => {
                     <strong>Quick Links</strong>
                     <QuickLinks className='mx-0'>
                         <li className='my-2'>
-                            <Link to="/login">Login</Link>
+                            <Link to="/home">Home</Link>
                         </li>
                         <li className='my-2'>
-                            <Link to="/login">Beta survey</Link>
+                            <Link to="/rules">Rules</Link>
+                        </li>
+                        {
+                            
+                        }
+                        <li className='my-2'>
+                            <Link to="/invite-friend">Invite Friend</Link>
+                        </li>
+                        <li className='my-2'>
+                            <Link to="/terms-of-use">Terms Of Use</Link>
                         </li>
                     </QuickLinks>
                 </div>
