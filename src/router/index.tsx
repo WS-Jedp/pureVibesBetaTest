@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { BrowserRouter, Routes, Route, Navigate  } from 'react-router-dom'
 
 import { AuthContainer } from '../containers/auth'
+import { AuthorizeSurveysContainer } from '../containers/authorize'
 import { Login } from '../pages/Login'
 import { Home } from '../pages/Home'
 import { Surveys } from '../pages/Surveys'
@@ -13,9 +14,11 @@ import { TermsOfUse } from '../pages/TermsOfUse'
 import { Invited } from '../pages/Invited'
 
 import { RootState } from '../store'
+import { ROLE } from '../core/DTO/Role'
 
 export const Router = () => {
 
+    const userRole = useSelector<RootState, ROLE>(state => state.role.role)
     const isAuth = useSelector<RootState, boolean>(state => state.user.isAuth)
 
     return (
@@ -26,8 +29,11 @@ export const Router = () => {
                         <Route element={<AuthContainer />}>
                             <Route path='/home'  element={<Home />} />
 
-                            <Route path='/surveys'  element={<Surveys />} />
-                            <Route path='/dashboard/survey/:surveyID'  element={<Survey />} />
+                            <Route element={<AuthorizeSurveysContainer />}>
+                                <Route path='/surveys'  element={<Surveys />} />
+                                <Route path='/dashboard/survey/:surveyID'  element={<Survey />} />
+                            </Route>
+
 
                             <Route path='/rules'  element={<Rules />} />
                             <Route path='/terms-of-use'  element={<TermsOfUse />} />

@@ -14,6 +14,7 @@ import { TermsOfUseState, checkAllTermsAndConditions } from '../../store/termsOf
 import { betaTestDone, inviteFriend } from '../../store/user'
 import { KEY_LOCALSTORAGE_INVITE_FRIEND } from '../../store/user/types'
 import { SurveysService } from '../../services/surveys'
+import { ROLE } from '../../core/DTO/Role'
 
 export const Home: React.FC = () => {
 
@@ -28,7 +29,9 @@ export const Home: React.FC = () => {
     }, [])
 
 
+    const userRole = useSelector<RootState, ROLE>(state => state.role.role)
     const isFriendInvited:boolean = useSelector<RootState, boolean>(state => state.user.inviteFriend)
+
     useEffect(() => {
         const lastIsFriendInvitedState = localStorage.getItem(KEY_LOCALSTORAGE_INVITE_FRIEND)
 
@@ -83,14 +86,18 @@ export const Home: React.FC = () => {
                     onClick={() => navigate('/invite-friend')}
                     isDone={isFriendInvited}
                 />
-                <InformationCard 
-                    Icon={MdOutlineQuiz}
-                    description="This beta test will be administered as an interactive survey questionnaire. Questions can be saved and answered at your own pace."
-                    title='BETA Test'
-                    onClick={() => navigate('/surveys')}
-                    disabled={!termsOfUse.isAllTermsAccepted}
-                    isDone={isBetaTestDone}
-                />
+                {
+                    userRole === ROLE.TESTER || userRole === ROLE.ADMIN && (
+                        <InformationCard 
+                            Icon={MdOutlineQuiz}
+                            description="This beta test will be administered as an interactive survey questionnaire. Questions can be saved and answered at your own pace."
+                            title='BETA Test'
+                            onClick={() => navigate('/surveys')}
+                            disabled={!termsOfUse.isAllTermsAccepted}
+                            isDone={isBetaTestDone}
+                        />
+                    )
+                }
             </Row>
 
 

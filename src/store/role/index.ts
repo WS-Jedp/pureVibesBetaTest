@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ROLE } from '../../core/DTO/Role'
+import { KEY_LOCALSTORAGE_ROLE, ROLE } from '../../core/DTO/Role'
 
 export interface RoleState {
     role: ROLE
@@ -14,6 +14,7 @@ export const roleSlice = createSlice({
     initialState,
     reducers: {
         setRole(state, action: PayloadAction<ROLE>) {
+            localStorage.setItem(KEY_LOCALSTORAGE_ROLE, action.payload)
             state.role = action.payload
         },
        becomeTester(state) {

@@ -8,6 +8,8 @@ import { RootState } from '../../store'
 import { UserState, setAuth, setUser, setToken, removeUser } from '../../store/user'
 
 import { AuthServices } from '../../services/auth'
+import { setRole } from '../../store/role'
+import { ROLES_BY_ID } from '../../core/DTO/Role'
 
 export const AuthContainer:React.FC = () => {
 
@@ -36,6 +38,7 @@ export const AuthContainer:React.FC = () => {
                 dispatch( setAuth(true) )
                 dispatch( setToken(lastTokenSaved) )
                 dispatch( setUser(user.response) )
+                dispatch( setRole(ROLES_BY_ID[user.response.user.role_id]) )
 
                 navigate('/dashboard')
             }

@@ -13,6 +13,8 @@ import { AuthServices } from '../../services/auth'
 
 import { PureVibesButton } from '../../components/button'
 import { Loading } from '../../containers/loading'
+import { setRole } from '../../store/role'
+import { ROLE, ROLES_BY_ID } from '../../core/DTO/Role'
 
 export const Login:React.FC<RouteProps> = () => {
 
@@ -72,6 +74,7 @@ export const Login:React.FC<RouteProps> = () => {
             if(user) {
                 dispatch(setToken(authToken))
                 dispatch(setAuth(true))
+                dispatch(setRole(ROLES_BY_ID[user.user.role_id]))
                 navigate('/home')
             }
         }
