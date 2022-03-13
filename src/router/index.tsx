@@ -14,11 +14,9 @@ import { TermsOfUse } from '../pages/TermsOfUse'
 import { Invited } from '../pages/Invited'
 
 import { RootState } from '../store'
-import { ROLE } from '../core/DTO/Role'
 
 export const Router = () => {
 
-    const userRole = useSelector<RootState, ROLE>(state => state.role.role)
     const isAuth = useSelector<RootState, boolean>(state => state.user.isAuth)
 
     return (
@@ -39,13 +37,13 @@ export const Router = () => {
                             <Route path='/terms-of-use'  element={<TermsOfUse />} />
 
                             <Route path='/invite-friend'  element={<FriendReferral />} />
-                            <Route path='/invited'  element={<Invited />} />
                             <Route path='*' element={<Navigate to="/home" />} />
                         </Route>
                     )
                 }
 
                 <Route path='/login'  element={<Login />} />
+                <Route path='/invited/:token'  element={<Invited />} />
                 <Route path='*' element={<Navigate to="/login" />} />
             </Routes>
         </BrowserRouter>

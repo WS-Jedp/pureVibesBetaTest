@@ -18,6 +18,7 @@ export const roleSlice = createSlice({
             state.role = action.payload
         },
        becomeTester(state) {
+            localStorage.setItem(KEY_LOCALSTORAGE_ROLE, ROLE.ADMIN)
            state.role = ROLE.TESTER
        }
     }

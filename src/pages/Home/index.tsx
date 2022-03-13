@@ -87,7 +87,7 @@ export const Home: React.FC = () => {
                     isDone={isFriendInvited}
                 />
                 {
-                    userRole === ROLE.TESTER || userRole === ROLE.ADMIN && (
+                    userRole !== ROLE.GUEST && (
                         <InformationCard 
                             Icon={MdOutlineQuiz}
                             description="This beta test will be administered as an interactive survey questionnaire. Questions can be saved and answered at your own pace."
