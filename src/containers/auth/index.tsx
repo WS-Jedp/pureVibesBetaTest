@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Outlet } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { AUTH_KEY_LOCAL_STORAGE } from '../../core/DTO/Auth'
@@ -9,7 +9,7 @@ import { UserState, setAuth, setUser, setToken, removeUser } from '../../store/u
 
 import { AuthServices } from '../../services/auth'
 
-export const AuthContainer:React.FC = ({ children }) => {
+export const AuthContainer:React.FC = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -46,8 +46,6 @@ export const AuthContainer:React.FC = ({ children }) => {
     }, [ authState.isAuth, authState.token ])
 
     return (
-        <>
-            { children }
-        </>
+            <Outlet />
     )
 }

@@ -23,23 +23,21 @@ export const Router = () => {
             <Routes>
                 {
                     isAuth && (
-                        <AuthContainer>
-                                <Route path='/home'  element={<Home />} />
-                                <Route path='/dashboard'  element={<Home />} />
+                        <Route element={<AuthContainer />}>
+                            <Route path='/home'  element={<Home />} />
 
-                                <Route path='*' element={<Navigate to="/home" />} />
-                        </AuthContainer>
+                            <Route path='/surveys'  element={<Surveys />} />
+                            <Route path='/dashboard/survey/:surveyID'  element={<Survey />} />
+
+                            <Route path='/rules'  element={<Rules />} />
+                            <Route path='/terms-of-use'  element={<TermsOfUse />} />
+
+                            <Route path='/invite-friend'  element={<FriendReferral />} />
+                            <Route path='/invited'  element={<Invited />} />
+                            <Route path='*' element={<Navigate to="/home" />} />
+                        </Route>
                     )
                 }
-
-                <Route path='/home'  element={<Home />} />
-                <Route path='/surveys'  element={<Surveys />} />
-                <Route path='/dashboard/survey/:surveyID'  element={<Survey />} />
-                <Route path='/invite-friend'  element={<FriendReferral />} />
-                <Route path='/rules'  element={<Rules />} />
-                <Route path='/terms-of-use'  element={<TermsOfUse />} />
-                <Route path='/invited'  element={<Invited />} />
-                
 
                 <Route path='/login'  element={<Login />} />
                 <Route path='*' element={<Navigate to="/login" />} />
