@@ -8,7 +8,7 @@ export const RESPONSABILITIES_TEXT:React.FC = () => (
               </p>
               <ol>
                      <li className='my-3'>
-                            1. Download TestFlight from the App Store.. [View Instruction Video]
+                            1. Download <a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank">TestFlight</a> from the App Store.. [View Instruction Video]
                      </li>
                      <li className='my-3'>
                             2. Answer questions about your experience using the app. We have provided an interactive questionnaire which is found in the BETA Tester tab, located on the home page of this portal. 

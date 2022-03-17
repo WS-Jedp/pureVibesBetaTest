@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 export const ImagesContainer = styled.article`
-    position: absolute;
+    position: relative;
+    margin-bottom: 21px;
     bottom: 0;
     left: 0;
     display: flex;
@@ -11,6 +12,11 @@ export const ImagesContainer = styled.article`
     width: 100%;
     height: auto;
     overflow: auto;
+
+    @media (min-width: 600px) {
+        position: absolute;
+        margin-bottom: initial;
+    }
 `
 
 export const AppImageExampleContainer = styled.article`

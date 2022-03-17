@@ -111,7 +111,7 @@ export const QuestionAnswer:React.FC = () => {
 
     if(!currentSurvey || !currentQuestion) return (
         <DashboardQuestionAnswserContainer className='p-4 h-100 d-flex flex-column align-items-center justify-content-around'>
-            <h3>Please try to select a survey again</h3>
+            <small>Loading...</small>
         </DashboardQuestionAnswserContainer>
     )
 

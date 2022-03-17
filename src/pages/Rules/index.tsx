@@ -75,7 +75,7 @@ export const Rules: React.FC = () => {
             <Row>
                 <InformationCard 
                     Icon={BsCardChecklist}
-                    title="Responsabilites"
+                    title="Responsabilities"
                     description="Everything you need to know"
                     onClick={() => setIsOpenResponsabilitiesModal(true)}
                     isDone={termsOfUse.responsabilities}

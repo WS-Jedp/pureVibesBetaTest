@@ -28,7 +28,7 @@ export const DashboardLayout:React.FC<DashboardLayoutProps> = ({ children, withG
             <Col xs="12" md="8" className='p-4 dashboard-children'>
                 {
                     withGoBack && (
-                        <GoBackButton onClick={() => navigate(-1)} className='text-decoration-none text-dark fw-bold'>
+                        <GoBackButton onClick={() => navigate('/home')} className='text-decoration-none text-dark fw-bold'>
                                 <BsArrowLeftShort size={30} /> Go Back
                         </GoBackButton>
                     )
@@ -55,43 +55,38 @@ export const DashboardSurveyLayout:React.FC<DashboardSurveyLayoutProps> = ({ chi
                 <Col xs="12" md="4">
                     <DashboardMenu />
                 </Col>
-                <Col xs="12" md="8" className='m-0 p-0 h-100'>
+                <Col xs="12" md="8" className='m-0 p-0 h-auto position-relative test'>
                     <Row className='m-0 p-0 h-100'>
-                        <Col xs="7" className='m-0 p-4 dashboard-children'>
-                            <GoBackButton onClick={() => navigate(-1)} className='text-decoration-none text-dark fw-bold'>
-                                <BsArrowLeftShort size={30} /> Go Back
-                            </GoBackButton>
-                            <h2 className='fs-1 fw-bold'>Beta Test</h2>
-
-                            {
-                                isLoading ? (
-                                    <Loading />
-                                ) : !currentSurvey ? (
-                                    <section>
-                                        <h3>There is no current survey selected</h3>
-                                        <p>
-                                            Try to select again the survey section that you want to answer
-                                        </p>
-                                    </section>
-                                ) : (
-                                    <ImagesSurveyContainer>
+                        {
+                            isLoading ? (
+                                <Loading />
+                            ) : (
+                                <>
+                                    <Col xs="12" md="7" className='m-0 p-4 d-flex flex-column justify-space-between align-items-start'>
                                         <div>
-                                            <h3 className='fs-4 fw-bold'>{ currentSurvey.name }</h3>
-                                            <p className='fs-6 fw-normal'>Answer each one of the questions of the {currentSurvey.name} survey to be able to answer the next survey</p>
+                                            <GoBackButton onClick={() => navigate(-1)} className='text-decoration-none text-dark fw-bold'>
+                                                <BsArrowLeftShort size={30} /> Go Back
+                                            </GoBackButton>
+                                            <h2 className='fs-1 fw-bold'>Beta Test</h2>
                                         </div>
-                                        <article className='w-100 m-0 p-0'>
-                                            {
-                                                children
-                                            }
-                                        </article>
-                                    </ImagesSurveyContainer>
-                                )
-                            }
-
-                        </Col>
-                        <Col xs="5" className='m-0 p-0 h-100'>
-                            <QuestionAnswer />
-                        </Col>
+                                        <ImagesSurveyContainer>
+                                            <div>
+                                                <h3 className='fs-4 fw-bold'>{ currentSurvey.name }</h3>
+                                                <p className='fs-6 fw-normal'>Answer each one of the questions of the {currentSurvey.name} survey to be able to answer the next survey</p>
+                                            </div>
+                                            <article className='position-relative w-100 m-0 p-0'>
+                                                {
+                                                    children
+                                                }
+                                            </article>
+                                        </ImagesSurveyContainer>
+                                    </Col>
+                                    <Col xs="12" md="5" className='m-0 p-0 h-100'>
+                                        <QuestionAnswer />
+                                    </Col>
+                                </>
+                            )
+                        }
                     </Row>
                 </Col>
             </Row>

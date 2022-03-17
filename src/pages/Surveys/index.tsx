@@ -6,6 +6,8 @@ import { DashboardLayout } from '../../layouts/dashboard'
 import { SurveysService } from '../../services/surveys'
 
 import { Loading } from '../../containers/loading'
+import { Modal } from '../../components/modal'
+import { SimpleModal } from '../../components/modal/simpleModal'
 import { SurveyCard } from '../../components/cards/survey'
 import { betaTestDone } from '../../store/user'
 
@@ -83,7 +85,7 @@ export const Surveys:React.FC = () => {
                         name: survey.name,
                         questions: [],
                         totalQuestions: survey.questionsTotal,
-                        currentQuestion: survey.answersTotal + 1,
+                        currentQuestion: survey.answersTotal > 0 ? survey.answersTotal - 1 : survey.answersTotal,
                         totalOfImages: 0
                      }))
                 }
@@ -117,10 +119,6 @@ export const Surveys:React.FC = () => {
 
     }
 
-   
-
-    
-
     return (
         <DashboardLayout withGoBack>
 
@@ -151,7 +149,7 @@ export const Surveys:React.FC = () => {
                                         name={survey.name}
                                         questionsDone={survey.answersTotal ? survey.answersTotal : 0}
                                         totalQuestion={survey.questionsTotal}
-                                        isDisable={!isAvailable(survey.id)} 
+                                        isDisable={isAllSurveysFinished} 
                                     />
                                 </li>
                             ))
@@ -162,7 +160,14 @@ export const Surveys:React.FC = () => {
 
             {
                 surveyState.allSurveys.length > 0 && isAllSurveysFinished && (
-                    <h3>Congratulations, you already finish all the BETA test surveys!</h3>
+                    <Modal>
+                        <SimpleModal
+                            title='Congratulations 🥳'
+                            content='You already finish all the BETA test surveys!'
+                            onAction={() => setIsAllSurveysFinishesd(false)}
+                        >
+                        </SimpleModal>
+                    </Modal>
                 )
             }
 

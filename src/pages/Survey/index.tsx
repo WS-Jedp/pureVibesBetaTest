@@ -55,7 +55,7 @@ export const Survey:React.FC = () => {
             dispatch(setCurrentSurvey({
                 id: currentSurvey.id,
                 name: currentSurvey.name,
-                currentQuestion: currentSurveySaved ? currentSurveySaved.answersTotal : 0,
+                currentQuestion: currentSurveySaved ? currentSurveySaved.answersTotal > 0 ? currentSurveySaved.answersTotal - 1 : currentSurveySaved.answersTotal : 0,
                 totalQuestions: currentSurvey.questions.length,
                 questions: currentSurvey.questions,
                 totalOfImages: currentSurvey.totalOfImages
@@ -77,7 +77,7 @@ export const Survey:React.FC = () => {
             <ImagesContainer>
                 {
                     currentSurveyState && Array.from(Array(3).keys()).map((img) => (
-                        <AppImageExampleContainer>
+                        <AppImageExampleContainer key={img}>
                             <img src={`/assets/images/surveys/survey-1-img-${img}.jpg`} alt={`Image of the ${currentSurveyState.id} survey`} />
                         </AppImageExampleContainer>
                     ))
