@@ -19,6 +19,7 @@ export const DashboardMenu:React.FC = () => {
     const navigate = useNavigate()
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
     const user = useSelector<RootState, User>(state => state.user.user)
 
@@ -37,43 +38,56 @@ export const DashboardMenu:React.FC = () => {
         navigate('/login')
     }
 
+    const onMenuSeeMore = () => setIsMenuOpen(!isMenuOpen)
+
     return (
         <DashboardMenuContainter className='p-4 d-flex flex-column justify-content-between'>
             <div>
                 <h2>Dharma Survey Beta</h2>
                 <strong className='fw-light'>Welcome {user ? user.name : "Guest"}!</strong>
+                
+                <div className={`menu-options ${isMenuOpen ? 'is-open' : 'is-close'}`}>
+                    <p className='fs-6 fw-light my-3'>
+                        Welcome and thank you for your participation! If you have any questions during any stages of this process, please Contact Us at 
+                    </p>
+                
+                    <span className='fs-6 fw-normal'>info@mydharma.app</span>
 
-                <p className='fs-6 fw-light my-3'>
-                    Welcome and thank you for your participation! If you have any questions during any stages of this process, please Contact Us at 
-                </p>
+                    <div className='my-5'>
+                        <strong>Quick Links</strong>
+                        <QuickLinks className='mx-0'>
+                            <li className='my-2'>
+                                <Link to="/home">Home</Link>
+                            </li>
+                            <li className='my-2'>
+                                <Link to="/rules">Rules</Link>
+                            </li>
+                            {
+                                
+                            }
+                            <li className='my-2'>
+                                <Link to="/invite-friend">Invite Friend</Link>
+                            </li>
+                            <li className='my-2'>
+                                <Link to="/terms-of-use">Terms Of Use</Link>
+                            </li>
+                        </QuickLinks>
+                    </div>
 
-                <span className='fs-6 fw-normal'>info@mydharma.app</span>
-
-                <div className='my-5'>
-                    <strong>Quick Links</strong>
-                    <QuickLinks className='mx-0'>
-                        <li className='my-2'>
-                            <Link to="/home">Home</Link>
-                        </li>
-                        <li className='my-2'>
-                            <Link to="/rules">Rules</Link>
-                        </li>
-                        {
-                            
-                        }
-                        <li className='my-2'>
-                            <Link to="/invite-friend">Invite Friend</Link>
-                        </li>
-                        <li className='my-2'>
-                            <Link to="/terms-of-use">Terms Of Use</Link>
-                        </li>
-                    </QuickLinks>
+                    <PureVibesButtonAlternative
+                        action={onLogout}
+                        text="Log out"
+                    />
                 </div>
 
-                <PureVibesButtonAlternative
-                    action={onLogout}
-                    text="Log out"
-                />
+                <div className="menu-action my-1">
+                    <strong onClick={onMenuSeeMore}>
+                        {
+                            isMenuOpen ? 'See Less' : 'See More'
+                        }
+                    </strong>
+                </div>
+
             </div>
 
 
