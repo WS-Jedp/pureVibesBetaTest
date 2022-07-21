@@ -122,9 +122,11 @@ export const Invited:React.FC = () => {
                                     <li>
                                         1. You will be required to book and complete one session using the Dharma App. Sessions options are: SOUND HEALING, REIKI, OR MINDFUL MASSAGE.
                                     </li>
+                                    <br />
                                     <li>
                                         2. We will give you a 15% discount for your first booking!!
                                     </li>
+                                    <br />
                                     <li>
                                         3. After the session you must leave an in-app review. 
                                     </li>

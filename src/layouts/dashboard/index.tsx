@@ -49,6 +49,8 @@ export const DashboardSurveyLayout:React.FC<DashboardSurveyLayoutProps> = ({ chi
     const navigate = useNavigate()
     const currentSurvey = useSelector<RootState, CurrentSurvey>(state => state.surveys.currentSurvey)
 
+    console.log(currentSurvey)
+
     return (
         <DashboardLayoutContainer className='d-flex flex-row'>
             <Row className='w-100'>
@@ -71,7 +73,7 @@ export const DashboardSurveyLayout:React.FC<DashboardSurveyLayoutProps> = ({ chi
                                         </div>
                                         <ImagesSurveyContainer>
                                             <div>
-                                                <h3 className='fs-4 fw-bold'>{ currentSurvey.name }</h3>
+                                                <h3 className='fs-4 fw-bold'>{ "Survey" }</h3>
                                                 <p className='fs-6 fw-normal'>Answer each one of the questions of the {currentSurvey.name} survey to be able to answer the next survey</p>
                                             </div>
                                             <article className='position-relative w-100 m-0 p-0'>

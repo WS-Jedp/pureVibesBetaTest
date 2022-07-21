@@ -50,7 +50,7 @@ export const Surveys:React.FC = () => {
             setIsLoading(true)
             const allSurveysResp = await SurveysService.get.surveys()
             const surveysResp = await SurveysService.get.surveysState()
-
+            
             if(surveysResp.error || allSurveysResp.error) {
                 console.error("There is an error with the server")
                 return
@@ -76,6 +76,17 @@ export const Surveys:React.FC = () => {
                 return simpleSurvey
             })
 
+
+            if(!userSurveysState.surveysState.length) {
+                const firstSurvey = surveys.find(surv => surv.id === 1)
+                userSurveysState.surveysState.push({
+                    survey_id: firstSurvey.id,
+                    name: firstSurvey.name,
+                    answersTotal: firstSurvey.answersTotal,
+                    isComplete: firstSurvey.answersTotal ? firstSurvey.answersTotal == firstSurvey.questionsTotal : false,
+                    questionsTotal: firstSurvey.questionsTotal
+                })
+            }
             userSurveysState.surveysState.forEach(survey => {
                 if(survey.isComplete) dispatch(addSurveyIntoFinished(survey.survey_id))
 
@@ -163,16 +174,13 @@ export const Surveys:React.FC = () => {
                     <Modal>
                         <SimpleModal
                             title='Congratulations 🥳'
-                            content='You already finish all the BETA test surveys!'
+                            content='You are all done with the BETA test survey, thank you! ♥️'
                             onAction={() => setIsAllSurveysFinishesd(false)}
                         >
                         </SimpleModal>
                     </Modal>
                 )
             }
-
-
-        
         </DashboardLayout>
     )
 }
