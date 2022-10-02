@@ -8,4 +8,5 @@ export type Question = {
     id: number
     question: string
     type: QUESTION_TYPE
+    image?: string[]
 }

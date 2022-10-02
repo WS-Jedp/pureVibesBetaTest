@@ -8,7 +8,7 @@ export const RESPONSABILITIES_TEXT:React.FC = () => (
               </p>
               <ol>
                      <li className='my-3'>
-                            1. Download TestFlight from the App Store.. [View Instruction Video]
+                            1. Download <a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank">TestFlight</a> from the App Store.. [View Instruction Video]
                      </li>
                      <li className='my-3'>
                             2. Answer questions about your experience using the app. We have provided an interactive questionnaire which is found in the BETA Tester tab, located on the home page of this portal. 
@@ -17,10 +17,10 @@ export const RESPONSABILITIES_TEXT:React.FC = () => (
                             3. After each completed holistic session booked through the app, provide an In-App review by..
                             <ul>
                                    <li>
-                                          -Rating the experience 
+                                          <b>-Rating the experience</b> 
                                    </li>
                                    <li>
-                                          -Leaving a few details about your session.
+                                          <b>-Leaving a few details about your session.</b>
                                    </li>
                             </ul>
                      </li>
@@ -46,6 +46,7 @@ export const RAFFLE_RULES_TEXT:React.FC = () => (
                             <li>- Third name drawn receives: 300 USD</li>
                      </ul>
               </li>
+              <br />
               <li>
                      <p>
                             2. Payouts are flexible: USD deposited into your Paypal account or COP Cash. 

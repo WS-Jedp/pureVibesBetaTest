@@ -14,6 +14,8 @@ export const DashboardLayoutContainer = styled.section`
     & .dashboard-children {
         position: relative;
         overflow-y: scroll;
+        padding: 0;
+        margin: 0;
     }
 
     @media (max-width: 600px) {
@@ -25,5 +27,17 @@ export const DashboardLayoutContainer = styled.section`
 export const GoBackButton = styled.button`
     background-color: transparent;
     border: none;
-    outline: none
+    outline: none;
+`
+
+export const ImagesSurveyContainer = styled.article`
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
 `

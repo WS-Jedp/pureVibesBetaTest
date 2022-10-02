@@ -195,7 +195,7 @@ export const PrivacyPolicy:React.FC = () => (
                 </p>
             </li>
             <p>
-                DHARMA is owned and operated by DHARMA HOLISTIC SERVICE LLC if you have any questions or comments about this Privacy Policy, please contact us at info@mydharma.app 
+                DHARMA is owned and operated by DHARMA HOLISTIC SERVICES LLC if you have any questions or comments about this Privacy Policy, please contact us at info@mydharma.app 
             </p>
         </ol>
     </div>

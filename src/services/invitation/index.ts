@@ -8,8 +8,12 @@ export const InvitationServices = {
     post: {
         invitePerson: async (data:InvitationParameters): Promise<ServiceResponse<InvitationDTO | null>> => {
             request.setAuthHeaders()
-            const invitationState = await request.get<InvitationDTO>(
-                SERVICE_ENDPOINT(`invite/${data.authUser}`)
+            const invitationState = await request.post<InvitationDTO>(
+                SERVICE_ENDPOINT(`invite/${data.authUser}`),
+                {
+                    email: data.email,
+                    name: data.name,
+                }
             ).then(invitationState => new ServiceResponse<InvitationDTO>({
                 error: null,
                 message: null,

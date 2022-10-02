@@ -9,7 +9,7 @@ type Survey = {
 type SurveyStateObject = {
     survey_id: number
     name: string
-    questionTotal: number
+    questionsTotal: number
     answersTotal: number
     isComplete: boolean
 }
@@ -19,11 +19,14 @@ type SurveyDTO = {
     id: number
     name: string
     questions: Question[]
+    totalOfImages: number
 }
 
 type SurveysDTO = {
     id: number
     name: string
+    questionsTotal: number
+    answersTotal?: number
 }[]
 
 type SurveyStateDTO = {

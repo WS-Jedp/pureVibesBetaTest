@@ -1,5 +1,6 @@
 export interface ButtonProps {
-    action: Function
+    action?: Function
     text: string
     isDisable?: boolean
+    isFormButton?: boolean
 }

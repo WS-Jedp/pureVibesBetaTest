@@ -59,7 +59,7 @@ class Request {
             }
 
             const json: RestClientResponse<T> =
-                resp.json() as unknown as RestClientResponse<T>
+                await resp.json() as unknown as RestClientResponse<T>
             return json.data
         } catch (error) {
             throw new Error(error)
@@ -82,8 +82,8 @@ class Request {
                 throw new Error(String(resp.status))
             }
 
-            const json: RestClientResponse<T> =
-                resp.json() as unknown as RestClientResponse<T>
+            const json = await resp.json() as unknown as RestClientResponse<T>
+            
             return json.data
         } catch (error) {
             throw new Error(error)
@@ -107,7 +107,7 @@ class Request {
             }
 
             const json: RestClientResponse<T> =
-                resp.json() as unknown as RestClientResponse<T>
+                await resp.json() as unknown as RestClientResponse<T>
             return json.data
         } catch (error) {
             throw new Error(error)

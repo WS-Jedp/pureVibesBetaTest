@@ -24,7 +24,7 @@ type ResultCreatedDTO = {
 
 type ResultDTO = {
     id: number
-    answers: string
+    answers: Answer[]
     totalQuestions: number
     totalAnswers: number
     isComplete: boolean

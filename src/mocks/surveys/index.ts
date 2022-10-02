@@ -4,15 +4,21 @@ import { questions } from '../questions'
 export const SurveysMock: SurveysDTO = [
     {
         id: 1,
-        name: 'Mock survey 1'
+        name: 'Mock survey 1',
+        questionsTotal: questions.length,
+        answersTotal: 0,
     },
     {
         id: 2,
-        name: 'Mock survey 2'
+        name: 'Mock survey 2',
+        questionsTotal: questions.length,
+        answersTotal: 0,
     },
     {
         id: 3,
-        name: 'Mock survey 3'
+        name: 'Mock survey 3',
+        questionsTotal: questions.length,
+        answersTotal: 0,
     },
 ]
 

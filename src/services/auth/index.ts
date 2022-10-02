@@ -3,6 +3,8 @@ import { UserDTO } from "../../core/DTO/User"
 import request, { SERVICE_ENDPOINT } from "../request"
 import ServiceResponse from '../response'
 
+import { LoginParameters } from './types'
+
 export const AuthServices = {
     get: {
         user: async (): Promise<ServiceResponse<UserDTO | null>> => {
@@ -32,10 +34,7 @@ export const AuthServices = {
         }
     },
     post: {
-        login: async (data: {
-            email: string
-            password: string
-        }): Promise<ServiceResponse<AuthUserDTO | null>> => {
+        login: async (data: LoginParameters): Promise<ServiceResponse<AuthUserDTO | null>> => {
             request.disableAuthHeaders()
             const auth = await request.post<AuthUserDTO>(
                 SERVICE_ENDPOINT("login"),

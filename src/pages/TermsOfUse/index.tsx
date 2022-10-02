@@ -86,7 +86,7 @@ export const TermsOfUse:React.FC = () => {
                 </Col>
                 <Col xs="12" md="4">
                     <TermsCard
-                        title="Non Closure"
+                        title="Non Disclosure"
                         Icon={MdLockOutline}
                         onAction={() => setIsNonClosureModalOpen(true)}
                         actionText="Read all"

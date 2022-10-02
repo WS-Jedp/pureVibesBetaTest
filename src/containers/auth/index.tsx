@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Outlet } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { AUTH_KEY_LOCAL_STORAGE } from '../../core/DTO/Auth'
@@ -8,8 +8,10 @@ import { RootState } from '../../store'
 import { UserState, setAuth, setUser, setToken, removeUser } from '../../store/user'
 
 import { AuthServices } from '../../services/auth'
+import { setRole } from '../../store/role'
+import { ROLES_BY_ID } from '../../core/DTO/Role'
 
-export const AuthContainer:React.FC = ({ children }) => {
+export const AuthContainer:React.FC = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -36,6 +38,7 @@ export const AuthContainer:React.FC = ({ children }) => {
                 dispatch( setAuth(true) )
                 dispatch( setToken(lastTokenSaved) )
                 dispatch( setUser(user.response) )
+                dispatch( setRole(ROLES_BY_ID[user.response.user.role_id]) )
 
                 navigate('/dashboard')
             }
@@ -46,8 +49,6 @@ export const AuthContainer:React.FC = ({ children }) => {
     }, [ authState.isAuth, authState.token ])
 
     return (
-        <>
-            { children }
-        </>
+            <Outlet />
     )
 }

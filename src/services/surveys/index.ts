@@ -2,7 +2,7 @@ import { SurveysDTO, SurveyDTO, BetaTestStateDTO, SurveyStateDTO, IsBetaTestDone
 import request, { SERVICE_ENDPOINT } from '../request'
 import ServiceResponse from '../response'
 
-export const RoleService = {
+export const SurveysService = {
     get: {
         async surveys(): Promise<ServiceResponse<SurveysDTO | null>> {
             request.setAuthHeaders()

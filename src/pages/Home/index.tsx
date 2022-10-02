@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { BsCardText } from 'react-icons/bs'
 import { MdGavel, MdOutlinePeopleAlt, MdOutlineQuiz } from 'react-icons/md'
 import { Row } from 'reactstrap'
-import { Link } from 'react-router-dom'
-import { AuthServices } from '../../services/auth'
 
 import { DashboardLayout } from '../../layouts/dashboard'
 
@@ -13,21 +11,27 @@ import { InformationCard } from '../../components/cards/information'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store'
 import { TermsOfUseState, checkAllTermsAndConditions } from '../../store/termsOfUse'
-import { inviteFriend } from '../../store/user'
+import { betaTestDone, inviteFriend } from '../../store/user'
 import { KEY_LOCALSTORAGE_INVITE_FRIEND } from '../../store/user/types'
+import { SurveysService } from '../../services/surveys'
+import { ROLE } from '../../core/DTO/Role'
 
 export const Home: React.FC = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const userID = useSelector<RootState, number>(state => state.user.user.id)
+    const isBetaTestDone = useSelector<RootState, boolean>(state => state.user.isBetaTestDone)
     const termsOfUse = useSelector<RootState, TermsOfUseState>(state => state.termsOfUse)
     useEffect(() => {
         dispatch(checkAllTermsAndConditions())
     }, [])
 
 
+    const userRole = useSelector<RootState, ROLE>(state => state.role.role)
     const isFriendInvited:boolean = useSelector<RootState, boolean>(state => state.user.inviteFriend)
+
     useEffect(() => {
         const lastIsFriendInvitedState = localStorage.getItem(KEY_LOCALSTORAGE_INVITE_FRIEND)
 
@@ -37,11 +41,27 @@ export const Home: React.FC = () => {
         }
     }, [])
 
+    useEffect(() => {
+        async function getBetaTestState() {
+            const isBetaTestDoneResp = await SurveysService.get.userBetaTestState(userID)
+            if(isBetaTestDoneResp.error) {
+                console.error("We sorry, we couldn't get the state of the beta test")
+                return
+            }
+
+            const betaTestState = isBetaTestDoneResp.response
+
+            if(betaTestState.isBetaTestDone) dispatch(betaTestDone())
+        }
+
+        !isBetaTestDone && getBetaTestState()
+    }, [])
+
     return (
         <DashboardLayout>
             <h2 className='fw-bolder fs-1'>Home</h2>
             <p className='fs-6 fw-normal'>
-                We have designed this beta test to be simple. In order to qualify for the <span className='fw-bold text-success'>500 USD</span> raffle prize, you will be required to <span className='fw-bold text-success text-uppercase'>use the App Twice</span> and <span className='fw-bold text-success text-uppercase'>complete the Survey</span> about your experiences. Before beginning the beta test, you must accept the Terms of Use, read the rules, and review the Friend Referral Tab— This will take about 10-20 minutes to complete.
+                We have designed this beta test to be simple. In order to qualify for the <span className='fw-bold text-success'>600 USD prize money available </span> you will be required to <span className='fw-bold text-success text-uppercase'>use the App Twice</span> and <span className='fw-bold text-success text-uppercase'>complete the Survey</span> about your experiences. Before beginning the beta test, you must accept the <b>Terms of Use, read the rules, and review the Friend Referral</b> Tab— This will take about 10-20 minutes to complete.
             </p>
 
             <Row className='d-flex flex-row'>
@@ -66,13 +86,18 @@ export const Home: React.FC = () => {
                     onClick={() => navigate('/invite-friend')}
                     isDone={isFriendInvited}
                 />
-                <InformationCard 
-                    Icon={MdOutlineQuiz}
-                    description="This beta test will be administered as an interactive survey questionnaire. Questions can be saved and answered at your own pace."
-                    title='BETA Test'
-                    onClick={() => navigate('/surveys')}
-                    disabled={!termsOfUse.isAllTermsAccepted}
-                />
+                {
+                    userRole !== ROLE.GUEST && (
+                        <InformationCard 
+                            Icon={MdOutlineQuiz}
+                            description="This beta test will be administered as an interactive survey questionnaire. Questions can be saved and answered at your own pace."
+                            title='BETA Test'
+                            onClick={() => navigate('/surveys')}
+                            disabled={!termsOfUse.isAllTermsAccepted}
+                            isDone={isBetaTestDone}
+                        />
+                    )
+                }
             </Row>
 
 
