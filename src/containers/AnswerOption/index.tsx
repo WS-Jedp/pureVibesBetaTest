@@ -3,7 +3,7 @@ import { QUESTION_TYPE } from '../../core/DTO/Questions'
 
 import { Boolean } from '../../components/answers/boolean'
 import { Rate } from '../../components/answers/rate'
-import { Text } from '../../components/answers/text'
+import { Text, TextEmptyValue } from '../../components/answers/text'
 
 interface AnswerOptionsInterface {
     questionType: QUESTION_TYPE
@@ -12,7 +12,6 @@ interface AnswerOptionsInterface {
 }
 
 export const AnswerOption:React.FC<AnswerOptionsInterface> = ({ questionType, setState, defaultValue }) => {
-
 
     switch (questionType) {
         case QUESTION_TYPE.BOOLEAN:
@@ -26,7 +25,9 @@ export const AnswerOption:React.FC<AnswerOptionsInterface> = ({ questionType, se
             )
 
         case QUESTION_TYPE.TEXT:
-            return (
+            return !defaultValue ? (
+                <TextEmptyValue setState={setState}></TextEmptyValue>
+            ) : (
                 <Text setState={setState} defaultValue={defaultValue}></Text>
             )
 

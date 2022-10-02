@@ -17,10 +17,10 @@ export const RESPONSABILITIES_TEXT:React.FC = () => (
                             3. After each completed holistic session booked through the app, provide an In-App review by..
                             <ul>
                                    <li>
-                                          -Rating the experience 
+                                          <b>-Rating the experience</b> 
                                    </li>
                                    <li>
-                                          -Leaving a few details about your session.
+                                          <b>-Leaving a few details about your session.</b>
                                    </li>
                             </ul>
                      </li>
@@ -46,6 +46,7 @@ export const RAFFLE_RULES_TEXT:React.FC = () => (
                             <li>- Third name drawn receives: 300 USD</li>
                      </ul>
               </li>
+              <br />
               <li>
                      <p>
                             2. Payouts are flexible: USD deposited into your Paypal account or COP Cash. 

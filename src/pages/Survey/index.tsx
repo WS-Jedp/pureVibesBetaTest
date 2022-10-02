@@ -13,9 +13,9 @@ import { SurveysDTO } from '../../core/DTO/Survey'
 
 import { AppImageExampleContainer, ImagesContainer } from './styles'
 import { CurrentSurvey } from '../../store/survey/types'
+import { current } from '@reduxjs/toolkit'
 
 export const Survey:React.FC = () => {
-
     const params = useParams<{surveyID: string}>()
     const dispatch = useDispatch()
     const surveysState = useSelector<RootState, SurveysDTO>(state => state.surveys.allSurveys)
@@ -71,16 +71,25 @@ export const Survey:React.FC = () => {
         getCurrentSurvey()
     }, [])
 
+    function getCurrentImage() {
+        const currentQuestion = currentSurveyState.questions[currentSurveyState.currentQuestion]
+        return (
+            currentSurveyState && currentQuestion && currentQuestion.image && currentQuestion.image.length > 0 && (
+                currentQuestion.image.map(img => (
+                    <AppImageExampleContainer key={img}>
+                        <img src={`/assets/images/screenshots/${img}`} alt={`Image of the ${currentSurveyState.id} survey`} />
+                    </AppImageExampleContainer>
+                ))
+            ) 
+        )
+    }
+
 
     return (
         <DashboardSurveyLayout isLoading={isLoading}>
             <ImagesContainer>
                 {
-                    currentSurveyState && Array.from(Array(3).keys()).map((img) => (
-                        <AppImageExampleContainer key={img}>
-                            <img src={`/assets/images/surveys/survey-1-img-${img}.jpg`} alt={`Image of the ${currentSurveyState.id} survey`} />
-                        </AppImageExampleContainer>
-                    ))
+                    getCurrentImage()
                 }
             </ImagesContainer>
         </DashboardSurveyLayout>

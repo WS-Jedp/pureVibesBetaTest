@@ -13,7 +13,12 @@ import { DashboardMenuContainter, QuickLinks } from './styles'
 import { AUTH_KEY_LOCAL_STORAGE } from '../../../core/DTO/Auth'
 import { removeRole } from '../../../store/role'
 
-export const DashboardMenu:React.FC = () => {
+
+interface DashboardMenu {
+    hideMenu?: boolean
+}
+
+export const DashboardMenu:React.FC<DashboardMenu> = ({ hideMenu }) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -48,27 +53,28 @@ export const DashboardMenu:React.FC = () => {
                 </p>
 
                 <span className='fs-6 fw-normal'>info@mydharma.app</span>
-
-                <div className='my-5'>
-                    <strong>Quick Links</strong>
-                    <QuickLinks className='mx-0'>
-                        <li className='my-2'>
-                            <Link to="/home">Home</Link>
-                        </li>
-                        <li className='my-2'>
-                            <Link to="/rules">Rules</Link>
-                        </li>
-                        {
-                            
-                        }
-                        <li className='my-2'>
-                            <Link to="/invite-friend">Invite Friend</Link>
-                        </li>
-                        <li className='my-2'>
-                            <Link to="/terms-of-use">Terms Of Use</Link>
-                        </li>
-                    </QuickLinks>
-                </div>
+                    {
+                        !hideMenu && (
+                            <div className='my-5'>
+                                <strong>Quick Links</strong>
+                                <QuickLinks className='mx-0'>
+                                    <li className='my-2'>
+                                        <Link to="/home">Home</Link>
+                                    </li>
+                                    <li className='my-2'>
+                                        <Link to="/rules">Rules</Link>
+                                    </li>
+                                    
+                                    <li className='my-2'>
+                                        <Link to="/invite-friend">Invite Friend</Link>
+                                    </li>
+                                    <li className='my-2'>
+                                        <Link to="/terms-of-use">Terms Of Use</Link>
+                                    </li>
+                                </QuickLinks>
+                            </div>
+                        )
+                    }
 
                 <PureVibesButtonAlternative
                     action={onLogout}

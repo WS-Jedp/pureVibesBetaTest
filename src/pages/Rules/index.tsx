@@ -65,7 +65,7 @@ export const Rules: React.FC = () => {
             </p>
 
             <p>
-                All testers that complete the Beta Tester Requirements will be entered into a raffle for a chance to win a prize of 500 USD, 300 USD, or 100 USD!!
+                All testers that complete the Beta Tester Requirements will be entered into a raffle for a chance to win a prize of 300 USD, 200 USD, or 100 USD!!
             </p>
 
             <p>
@@ -75,7 +75,7 @@ export const Rules: React.FC = () => {
             <Row>
                 <InformationCard 
                     Icon={BsCardChecklist}
-                    title="Responsabilities"
+                    title="Responsibilities"
                     description="Everything you need to know"
                     onClick={() => setIsOpenResponsabilitiesModal(true)}
                     isDone={termsOfUse.responsabilities}
@@ -102,7 +102,7 @@ export const Rules: React.FC = () => {
                 isOpenResponsabilitiesModal && (
                     <Modal>
                         <DetailModal
-                            title="Responsibilities as a Beta Tester are as:"
+                            title="Responsibilities as a Beta Tester are:"
                             onAgree={handleResponsabilitiesModal}
                             onClose={() => setIsOpenResponsabilitiesModal(false)}
                         >

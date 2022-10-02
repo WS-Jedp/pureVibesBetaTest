@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const ImagesContainer = styled.article`
     position: relative;
     margin-bottom: 21px;
+    overflow-x: scroll;
     bottom: 0;
     left: 0;
     display: flex;
@@ -11,7 +12,6 @@ export const ImagesContainer = styled.article`
     justify-content: start;
     width: 100%;
     height: auto;
-    overflow: auto;
 
     @media (min-width: 600px) {
         position: absolute;
@@ -21,9 +21,9 @@ export const ImagesContainer = styled.article`
 
 export const AppImageExampleContainer = styled.article`
     position: relative;
+    overflow: auto;
     min-width: 210px;
     width: 210px;
-    max-width: 210px;
     min-height: 360px;
     height: 360px;
     max-height: 360px;

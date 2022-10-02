@@ -89,7 +89,7 @@ export const Invited:React.FC = () => {
 
 
     return (
-        <DashboardLayout>
+        <DashboardLayout hideMenu={true}>
             {
                 isLoading ? (
                     <Loading />
@@ -151,7 +151,7 @@ export const Invited:React.FC = () => {
                             </label>
                             <Collapse isOpen={isTester}>
                                 <p>
-                                    Become a Full Beta Tester and be eligible for <strong>100, 200, or 500 USD cash prize!!</strong>
+                                    Become a Full Beta Tester and be eligible for <strong>100, 200, or 300 USD cash prize!!</strong>
                                 </p>
 
                                 <strong>
@@ -178,7 +178,7 @@ export const Invited:React.FC = () => {
                                     </li>
                                     <li className='my-2'>
                                         <strong>
-                                            4. After beta-testing has ended, Testers who have successfully met our requirements will be entered into a <span className='fw-bold text-uppercase text-success'></span> 
+                                            4. After beta-testing has ended, Testers who have successfully met our requirements will be entered into a <span className='fw-bold text-uppercase text-success'>raffle</span> 
                                         </strong>
                                     </li>
                                     <li className='my-2'>
