@@ -12,7 +12,7 @@ import {
 } from "./types"
 
 class Request {
-    private baseUrl = "http://localhost:8000"
+    private baseUrl = "https://squid-app-ek8hp.ondigitalocean.app"
     private auth: boolean
     private token: string
     private currentMethod: METHODS_ACCEPTED
