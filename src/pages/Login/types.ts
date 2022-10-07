@@ -1,3 +1,4 @@
-export interface LoginProps {
-    isAuth: boolean
+export interface LoginForm {
+    email: string
+    password: string
 }
